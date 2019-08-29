@@ -11,7 +11,8 @@ public class AParametres extends Activite {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_parametres);
-        GLog.valeurs("Bonjour!");
+        GLog.valeurs(this.getResources().getString(R.string.bonjour));
+        GLog.valeurs("Est-ce qu'on est en portrait?, " + !this.getResources().getBoolean(R.bool.land));
     }
 
     @Override
