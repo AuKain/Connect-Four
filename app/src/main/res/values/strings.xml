@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">NicolasParr</string>
     <string name="bonjour">Hello!</string>
+    <string name="chkBoxTitle">Prefered board size for new games</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="resume">Resume previous game</string>
 </resources>

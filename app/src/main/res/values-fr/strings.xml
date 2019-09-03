@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NicolasParr</string>
+    <string name="bonjour">Bonjour!</string>
+    <string name="chkBoxTitle">Taille préférée pour une nouvelle partie</string>
+    <string name="small">Petite</string>
+    <string name="medium">Moyenne</string>
+    <string name="large">Grande</string>
+    <string name="resume">Continuer partie précédente</string>
+</resources>
