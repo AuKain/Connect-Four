@@ -1,6 +1,7 @@
 package ca.cours5b5.nicolasparr.global;
 
 import android.util.Log;
+import android.view.View;
 
 public class GLog {
 
@@ -8,25 +9,23 @@ public class GLog {
 
     private static final String PREFIXE = "GLog";
 
-
-
     private static final String SEPARATEUR_NOM_CLASSE = "\\.";
 
     private static final int BORNE_FORMATTAGE_EN_HEX = 100000;
 
-    public static void appel(Class classeAppelante){
+    public static void appel(Class classeAppelee){
 
-        String nomClasseAppelante = classeAppelante.getSimpleName();
+        String nomClasseAppelee = classeAppelee.getSimpleName();
 
-        afficherMethode(nomClasseAppelante);
+        afficherMethode(nomClasseAppelee);
 
     }
 
-    public static void appel(Object objetAppelant){
+    public static void appel(Object objetAppele){
 
-        String nomClasseAppelante = objetAppelant.getClass().getSimpleName();
+        String nomClasseAppelee = objetAppele.getClass().getSimpleName();
 
-        afficherMethode(nomClasseAppelante);
+        afficherMethode(nomClasseAppelee);
 
     }
 
@@ -39,17 +38,13 @@ public class GLog {
 
     private static void afficherValeurs(Object... valeurs){
 
-        String chaineValeurs = getChaineValeursAdditionnelles(valeurs);
+        String chaineValeurs = getChaineValeurs(valeurs);
 
         StackTraceElement appelAAfficher = getAppel();
 
         String nomFichier = appelAAfficher.getFileName();
 
         int numeroLigne = appelAAfficher.getLineNumber();
-
-        String nomMethode = getNomMethode(appelAAfficher);
-
-        String nomClasseContenantCode = getNomClasseSimple(appelAAfficher);
 
         String etiquette = PREFIXE + " (" + nomFichier  + ":" + numeroLigne + ") VALEURS";
 
@@ -66,13 +61,11 @@ public class GLog {
 
     }
 
-    private static void afficherMethode(String nomClasseAppelante){
+    private static void afficherMethode(String nomClasseAppelee){
 
         StackTraceElement appelAAfficher = getAppel();
 
         String nomMethode = getNomMethode(appelAAfficher);
-
-        String nomClasseContenantCode = getNomClasseSimple(appelAAfficher);
 
         String nomFichier = appelAAfficher.getFileName();
 
@@ -80,7 +73,7 @@ public class GLog {
 
         String etiquette = PREFIXE + " (" + nomFichier + ":" + numeroLigne + ") APPEL";
 
-        String chaineAppel = nomClasseAppelante + "." + nomMethode;
+        String chaineAppel = nomClasseAppelee + "." + nomMethode;
 
         Log.d(etiquette, chaineAppel);
 
@@ -93,60 +86,25 @@ public class GLog {
         return nomMethode;
     }
 
-        private static String getNomClasseSimple(StackTraceElement appelAAfficher) {
-
-        String nomClasseComplet = appelAAfficher.getClassName();
-
-        String nomClasseSimple = getNomClasseSimple(nomClasseComplet);
-
-        return nomClasseSimple;
-    }
-
-    private static String getNomClasseSimple(String nomClasseComplet){
-
-        String[] segmentsDuNom = nomClasseComplet.split(SEPARATEUR_NOM_CLASSE);
-
-        String nomClasseSimple = segmentsDuNom[segmentsDuNom.length - 1];
-
-        return nomClasseSimple;
-
-    }
-
-
-    private static String getChaineAppel(String nomClasseSimple, String nomMethode, Object... valeursAdditionnelles){
-
-        String appel = nomClasseSimple;
-
-        appel += ".";
-
-        appel += nomMethode;
-
-        appel += "()";
-
-        appel += getChaineValeursAdditionnelles(valeursAdditionnelles);
-
-        return appel;
-    }
-
-    private static String getChaineValeursAdditionnelles(Object... valeursAdditionnelles){
-        if(valeursAdditionnelles.length == 0){
+    private static String getChaineValeurs(Object... valeurs){
+        if(valeurs.length == 0){
             return "";
         }
 
-        String chaineValeursAdditionnelles = "";
+        String chaineValeurs = "";
 
-        for(int i=0; i < valeursAdditionnelles.length; i++){
+        for(int i=0; i < valeurs.length; i++){
 
-            chaineValeursAdditionnelles += getChaineValeur(valeursAdditionnelles[i]);
+            chaineValeurs += getChaineValeur(valeurs[i]);
 
-            if(i<(valeursAdditionnelles.length-1)){
+            if(i<(valeurs.length-1)){
 
-                chaineValeursAdditionnelles += ", ";
+                chaineValeurs += ", ";
 
             }
         }
 
-        return chaineValeursAdditionnelles;
+        return chaineValeurs;
     }
 
     private static String getChaineValeur(Object valeur){
@@ -173,6 +131,10 @@ public class GLog {
         }else if(valeur == null){
 
             return "null";
+
+        }else if(valeur instanceof View){
+
+            return valeur.getClass().getSimpleName() + " [" + getChaineValeur(((View) valeur).getId()) + "]";
 
         }else{
 

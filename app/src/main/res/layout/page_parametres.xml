@@ -7,7 +7,7 @@
     tools:context=".activites.AParametres">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchResume"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxS"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
@@ -55,7 +55,7 @@
             android:textSize="14sp" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBoxM"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
@@ -64,7 +64,7 @@
             android:textSize="14sp" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBoxL"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
