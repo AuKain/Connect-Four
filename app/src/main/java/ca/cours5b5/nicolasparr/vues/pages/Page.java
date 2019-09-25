@@ -1,4 +1,4 @@
-package ca.cours5b5.nicolasparr.vue.pages;
+package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
 import android.util.AttributeSet;

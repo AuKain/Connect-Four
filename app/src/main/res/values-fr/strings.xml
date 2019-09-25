@@ -10,4 +10,6 @@
     <string name="connection">Connexion</string>
     <string name="play">Jouer</string>
     <string name="online">Jouer en-ligne</string>
+    <string name="nameA">Alice</string>
+    <string name="nameB">Bobby</string>
 </resources>
