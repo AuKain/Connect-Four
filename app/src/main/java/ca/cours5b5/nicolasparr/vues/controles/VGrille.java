@@ -40,7 +40,7 @@ public class VGrille extends LinearLayout {
         for(int i = 0; i < largeur; i++) {
             colonnes.add(new VColonne(this.getContext(), hauteur, i));
 
-            this.addView(colonnes.get(i), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+            this.addView(colonnes.get(i), new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
         }
     }
 }

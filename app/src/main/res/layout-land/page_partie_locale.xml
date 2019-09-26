@@ -35,8 +35,8 @@
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:letterSpacing="1"
-            android:maxWidth="25dp"
+            android:letterSpacing="2"
+            android:maxWidth="20dp"
             android:text="@string/nameA" />
 
         <TextView
