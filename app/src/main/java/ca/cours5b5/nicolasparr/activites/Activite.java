@@ -12,7 +12,7 @@ public abstract class Activite extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        GLog.valeurs(this);
+        GLog.appel(this);
 
         GLog.valeurs("état, " + savedInstanceState);
 
@@ -25,49 +25,49 @@ public abstract class Activite extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onResume();
     }
 
     @Override
     protected void onRestart() {
+        GLog.appel(this);
         super.onRestart();
-        GLog.valeurs(this);
     }
 
     @Override
     protected void onPause() {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onDestroy();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        GLog.valeurs(this);
+        GLog.appel(this);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
