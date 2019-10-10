@@ -6,9 +6,10 @@ import android.widget.Switch;
 import android.widget.CheckBox;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.global.GLog;
 
-public class PParametres extends Page {
+public class PParametres extends PageAvecDonnees<DParametres> {
 
     CheckBox checkBoxS;
     CheckBox checkBoxM;
@@ -26,6 +27,16 @@ public class PParametres extends Page {
 
     public PParametres(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public void creerAffichage(DParametres donnees) {
+        //TODO
+    }
+
+    @Override
+    public void rafraichirAffichage(DParametres donnees) {
+        //TODO
     }
 
     @Override
