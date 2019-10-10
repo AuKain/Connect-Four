@@ -1,0 +1,20 @@
+Dans quelles circonstances est-ce qu'une activité est crée?
+	Lorsque l'application est démarrée pour la première fois.
+
+Dans quelles circonstances est-ce qu'une activité est interrompue (onPause)?
+	Lorsqu'on change l'orientation du téléphone et lorsque l'application est inactive : retour au Home, ouvrir le menu qui montre les application actives (le bouton carré), démarrer une autre application et lorsque le téléphone est en veille.
+
+Dans quelles circonstances est-ce qu'une activité est réactivée (onResume)?
+	Lorsque l'application est démarrée après avoir interrompu l'application (onPause).
+
+Dans quelles circonstances est-ce qu'une activité est détruite?
+	Lorsque l'application est fermée complètement à partir de l'écran des application actives (le bouton carré), lorsqu'on change la langue et lorsqu'on change l'orientation.
+
+Dans quelles circonstances est-ce que l'état est sauvegardé?
+	Lorsque l'application est interrompue et lorsqu'on change l'orientation.
+
+Dans quelles circonstances est-ce que l'état est restauré?
+	Jamais. (pour l'instant...)
+
+Dans quelles circonstances est-ce que le choix de taille est conservé? perdu?
+	La taille de la grille est conservée tant que l'application n'est pas détruite. Elle est donc perdue lorsqu'on ferme l'application complètement, lorsqu'on change la langue et lorsqu'on change l'orientation.

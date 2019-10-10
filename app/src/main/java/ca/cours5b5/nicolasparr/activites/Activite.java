@@ -12,26 +12,27 @@ public abstract class Activite extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        GLog.valeurs(this);
+
+        GLog.valeurs("état, " + savedInstanceState);
+
         super.onCreate(savedInstanceState);
 
         int contentViewId = getLayoutId();
 
         setContentView(contentViewId);
-
-        GLog.valeurs(this);
-        GLog.valeurs("état, " + savedInstanceState);
     }
 
     @Override
     protected void onStart() {
-        super.onStart();
         GLog.valeurs(this);
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         GLog.valeurs(this);
+        super.onResume();
     }
 
     @Override
@@ -42,32 +43,32 @@ public abstract class Activite extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();
         GLog.valeurs(this);
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         GLog.valeurs(this);
+        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
+        GLog.valeurs(this);
         super.onDestroy();
-        GLog.valeurs(this);
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
         GLog.valeurs(this);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        GLog.valeurs(this);
         super.onRestoreInstanceState(savedInstanceState);
-        GLog.valeurs(this);
     }
 
     protected abstract int getLayoutId();
