@@ -31,12 +31,52 @@ public class PParametres extends PageAvecDonnees<DParametres> {
 
     @Override
     public void creerAffichage(DParametres donnees) {
-        //TODO
+        GLog.appel(this);
+
+        switch (donnees.getTailleGrille()) {
+            case PETITE:
+                checkBoxS.setChecked(true);
+                checkBoxM.setChecked(false);
+                checkBoxL.setChecked(false);
+                break;
+            case MOYENNE:
+                checkBoxS.setChecked(false);
+                checkBoxM.setChecked(true);
+                checkBoxL.setChecked(false);
+                break;
+            case GRANDE:
+                checkBoxS.setChecked(false);
+                checkBoxM.setChecked(false);
+                checkBoxL.setChecked(true);
+                break;
+        }
+
+        switchResume.setChecked(donnees.isContinuerPartiePrec());
     }
 
     @Override
     public void rafraichirAffichage(DParametres donnees) {
-        //TODO
+        GLog.appel(this);
+
+        switch (donnees.getTailleGrille()) {
+            case PETITE:
+                checkBoxS.setChecked(true);
+                checkBoxM.setChecked(false);
+                checkBoxL.setChecked(false);
+                break;
+            case MOYENNE:
+                checkBoxS.setChecked(false);
+                checkBoxM.setChecked(true);
+                checkBoxL.setChecked(false);
+                break;
+            case GRANDE:
+                checkBoxS.setChecked(false);
+                checkBoxM.setChecked(false);
+                checkBoxL.setChecked(true);
+                break;
+        }
+
+        switchResume.setChecked(donnees.isContinuerPartiePrec());
     }
 
     @Override

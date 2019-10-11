@@ -1,36 +1,49 @@
 package ca.cours5b5.nicolasparr.donnees;
 
+import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GConstantes;
+import ca.cours5b5.nicolasparr.global.GLog;
 
 public class DParametres extends Donnees {
 
-    private String tailleGrille = GConstantes.tailleDefaut;
-    private boolean continuerPartiePrec = GConstantes.continuerPartiePrec;
+    private ETailleGrille tailleGrille;
+    private boolean continuerPartiePrec;
 
-    DParametres() { }
-
-    DParametres(String tailleGrille) {
-        this.tailleGrille = tailleGrille;
+    public DParametres() {
+        GLog.appel(this);
+        this.tailleGrille = GConstantes.tailleDefaut;
+        this.continuerPartiePrec = GConstantes.continuerPartiePrec;
     }
 
-    DParametres(boolean continuerPartiePrec) {
+    public DParametres(ETailleGrille tailleGrille) {
+        GLog.appel(this);
+        this.tailleGrille = tailleGrille;
+        this.continuerPartiePrec = GConstantes.continuerPartiePrec;
+    }
+
+    public DParametres(boolean continuerPartiePrec) {
+        GLog.appel(this);
+        this.continuerPartiePrec = continuerPartiePrec;
+        this.tailleGrille = GConstantes.tailleDefaut;
+    }
+
+    public DParametres(ETailleGrille tailleGrille, boolean continuerPartiePrec) {
+        GLog.appel(this);
+        this.tailleGrille = tailleGrille;
         this.continuerPartiePrec = continuerPartiePrec;
     }
 
-    DParametres(String tailleGrille, boolean continuerPartiePrec) {
-        this.tailleGrille = tailleGrille;
-        this.continuerPartiePrec = continuerPartiePrec;
-    }
+    public ETailleGrille getTailleGrille() {
 
-    public String getTailleGrille() {
         return tailleGrille;
     }
 
     public boolean isContinuerPartiePrec() {
+
         return continuerPartiePrec;
     }
 
-    public void setTailleGrille(String tailleGrille) {
+    public void setTailleGrille(ETailleGrille tailleGrille) {
         this.tailleGrille = tailleGrille;
     }
 

@@ -11,13 +11,6 @@ import ca.cours5b5.nicolasparr.vues.pages.PParametres;
 public class AParametres extends ActiviteAvecDonnees<DParametres, PParametres> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.page_parametres);
-        GLog.valeurs("Est-ce qu'on est en portrait?, " + !this.getResources().getBoolean(R.bool.land));
-    }
-
-    @Override
     protected int getIdPage() {
         return R.id.page_parametres;
     }
