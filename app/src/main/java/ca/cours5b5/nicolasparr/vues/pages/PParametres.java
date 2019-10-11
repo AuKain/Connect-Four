@@ -1,15 +1,19 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Switch;
 import android.widget.CheckBox;
 
 import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.global.GLog;
+import ca.cours5b5.nicolasparr.modeles.MParametres;
+import ca.cours5b5.nicolasparr.modeles.Modele;
 
-public class PParametres extends PageAvecDonnees<DParametres> {
+public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
     CheckBox checkBoxS;
     CheckBox checkBoxM;
@@ -52,6 +56,39 @@ public class PParametres extends PageAvecDonnees<DParametres> {
         }
 
         switchResume.setChecked(donnees.isContinuerPartiePrec());
+    }
+
+    @Override
+    public void installerCapteurs(final MParametres modele) {
+        GLog.appel(this);
+        checkBoxS.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                modele.setCheckPetit(checkBoxS, checkBoxM, checkBoxL);
+            }
+        });
+        checkBoxM.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                modele.setCheckMoyen(checkBoxS, checkBoxM, checkBoxL);
+            }
+        });
+        checkBoxL.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                modele.setCheckGrand(checkBoxS, checkBoxM, checkBoxL);
+            }
+        });
+        switchResume.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                modele.setSwitchContinuer(switchResume);
+            }
+        });
     }
 
     @Override
