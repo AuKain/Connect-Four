@@ -25,12 +25,14 @@ public class PPartieLocale extends PPartie {
 
     public PPartieLocale(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         GLog.appel(this);
     }
 
     @Override
     protected void recupererControles() {
         GLog.appel(this);
+
         joueur1 = this.findViewById(R.id.textJoueurA);
         joueur2 = this.findViewById(R.id.textJoueurB);
         grille = this.findViewById(R.id.grille);

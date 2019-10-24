@@ -9,8 +9,8 @@ import ca.cours5b5.nicolasparr.vues.pages.PParametres;
 public class AParametres extends ActiviteAvecModeles<DParametres, MParametres, PParametres> {
 
     @Override
-    protected void creerModele(DParametres donnees, PParametres page) {
-        new MParametres(donnees, page); //TODO voir signature du constructeur
+    protected MParametres creerModele(DParametres donnees, PParametres page) {
+        return new MParametres(donnees, page);
     }
 
     @Override

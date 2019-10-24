@@ -3,6 +3,8 @@ package ca.cours5b5.nicolasparr.donnees;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.cours5b5.nicolasparr.global.GLog;
+
 public class EntrepotDeDonnees {
 
     static Map<Class<? extends Donnees>, Donnees> donneesParId = new HashMap<>();
@@ -12,8 +14,10 @@ public class EntrepotDeDonnees {
         if (siDonneesSontDansEntrepot(classeDonnees)) {
             return donneesDansEntrepot(classeDonnees);
         } else {
-            entreposerDonnees(creerDonnees(classeDonnees));
-            return creerDonnees(classeDonnees);
+
+            D donnees = creerDonnees(classeDonnees);
+            entreposerDonnees(donnees);
+            return donnees;
         }
     }
 
