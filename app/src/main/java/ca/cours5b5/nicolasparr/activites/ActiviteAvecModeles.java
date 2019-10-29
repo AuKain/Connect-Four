@@ -19,13 +19,20 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
         GLog.appel(this);
 
         super.onCreate(savedInstanceState);
-        initialiserDonneesPageModele();
+        initialiserDonneesPageModele(savedInstanceState);
     }
 
-    private void initialiserDonneesPageModele() {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        EntrepotDeDonnees.sauvegarderDonnees(donnees, outState);
+    }
+
+    private void initialiserDonneesPageModele(Bundle etat) {
         GLog.appel(this);
 
-        initialiserPageModele(this.donnees = recupererDonnees());
+        initialiserPageModele(this.donnees = recupererDonnees(etat));
     }
 
     private void initialiserPageModele(D donnees) {
@@ -35,10 +42,10 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
         this.modele = creerModele(donnees, this.page);
     }
 
-    private D recupererDonnees() {
+    private D recupererDonnees(Bundle etat) {
         GLog.appel(this);
 
-        return EntrepotDeDonnees.obtenirDonnees(getClassDonnees());
+        return EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), etat);
     }
 
     protected abstract int getIdPage();

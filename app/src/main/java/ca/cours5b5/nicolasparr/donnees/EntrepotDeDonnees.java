@@ -1,17 +1,25 @@
 package ca.cours5b5.nicolasparr.donnees;
 
+import android.os.Bundle;
+
 import java.util.HashMap;
 import java.util.Map;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ca.cours5b5.nicolasparr.global.GLog;
 
 public class EntrepotDeDonnees {
 
     static Map<Class<? extends Donnees>, Donnees> donneesParId = new HashMap<>();
+    private static Gson gson = new GsonBuilder().create();
 
-    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees) {
+    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, Bundle etat) {
 
-        if (siDonneesSontDansEntrepot(classeDonnees)) {
+        if (siDonneesSontDansEtat(classeDonnees, etat)) {
+
+            return donneesDansEtat(classeDonnees, etat);
+        } else if (siDonneesSontDansEntrepot(classeDonnees)) {
+
             return donneesDansEntrepot(classeDonnees);
         } else {
 
@@ -27,7 +35,6 @@ public class EntrepotDeDonnees {
         } catch (IllegalAccessException | InstantiationException e ) {
             throw new RuntimeException(e);
         }
-
     }
 
     private static <D extends Donnees> D donneesDansEntrepot(Class<? extends Donnees> classeDonnees) {
@@ -40,5 +47,22 @@ public class EntrepotDeDonnees {
 
     private static <D extends Donnees> void entreposerDonnees(D donnees) {
         donneesParId.put(donnees.getClass(), donnees);
+    }
+
+    public static <D extends Donnees> void sauvegarderDonnees(D donnees, Bundle outState) {
+        outState.putString(clePourClasseDonnees(donnees.getClass()), gson.toJson(donnees));
+    }
+
+    public static <D extends Donnees> boolean siDonneesSontDansEtat(Class<? extends Donnees> classeDonnees, Bundle etat) {
+
+        return (etat != null)? etat.containsKey(clePourClasseDonnees(classeDonnees)) : false; //TODO ouache c'est laid...
+    }
+
+    public static <D extends Donnees> D donneesDansEtat (Class<D> classeDonnees, Bundle etat) {
+        return gson.fromJson(etat.getString(clePourClasseDonnees(classeDonnees)), classeDonnees);
+    }
+
+    private static String clePourClasseDonnees(Class<? extends Donnees> classeDonnees) {
+        return classeDonnees.getName();
     }
 }

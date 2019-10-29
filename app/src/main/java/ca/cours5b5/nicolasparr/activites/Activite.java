@@ -60,13 +60,13 @@ public abstract class Activite extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         GLog.appel(this);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         GLog.appel(this);
         super.onRestoreInstanceState(savedInstanceState);
     }
