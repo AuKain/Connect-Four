@@ -55,7 +55,16 @@ public class EntrepotDeDonnees {
 
     public static <D extends Donnees> boolean siDonneesSontDansEtat(Class<? extends Donnees> classeDonnees, Bundle etat) {
 
-        return (etat != null)? etat.containsKey(clePourClasseDonnees(classeDonnees)) : false; //TODO ouache c'est laid...
+        GLog.valeurs(classeDonnees);
+        GLog.valeurs(etat);
+
+        try {
+
+            return etat.containsKey(clePourClasseDonnees(classeDonnees));
+        } catch (NullPointerException e) {
+
+            return false;
+        }
     }
 
     public static <D extends Donnees> D donneesDansEtat (Class<D> classeDonnees, Bundle etat) {
