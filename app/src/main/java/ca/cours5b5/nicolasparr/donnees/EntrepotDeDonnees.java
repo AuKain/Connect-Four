@@ -2,7 +2,12 @@ package ca.cours5b5.nicolasparr.donnees;
 
 import android.os.Bundle;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
@@ -16,9 +21,12 @@ public class EntrepotDeDonnees {
 
     public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, Bundle etat, File repertoireDonnees) {
 
-        if (siDonneesSontDansEtat(classeDonnees, etat)) { //TODO si les données ne sont pas dans l'état vérifier le disque ... le reste parreil
+        if (siDonneesSontDansEtat(classeDonnees, etat)) {
 
             return donneesDansEtat(classeDonnees, etat);
+        } else if (siDonneesSontSurDisque(classeDonnees, repertoireDonnees)) {
+
+            return donneesSurDisque(classeDonnees, repertoireDonnees);
         } else if (siDonneesSontDansEntrepot(classeDonnees)) {
 
             return donneesDansEntrepot(classeDonnees);
@@ -31,23 +39,45 @@ public class EntrepotDeDonnees {
     }
 
     private static String nomFichierPourClasseDonnees(Class<? extends Donnees> classeDonnees) {
-        return null;//TODO
+        return classeDonnees.getSimpleName();
     }
 
     private static File fichierDonnees(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
-        return null;//TODO
+
+        return new File(repertoireDonnees, nomFichierPourClasseDonnees(classeDonnees));
     }
 
     private static boolean siDonneesSontSurDisque(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
-        return false;//TODO
+
+        return fichierDonnees(classeDonnees, repertoireDonnees).exists();
     }
 
     private static <D extends Donnees> D donneesSurDisque(Class<D> classeDonnees, File repertoireDonnees) {
-        return null;//TODO
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fichierDonnees(classeDonnees, repertoireDonnees)));
+
+            D donnees = gson.fromJson(reader.readLine(), classeDonnees);
+            reader.close();
+
+            return donnees;
+
+        } catch (IOException e) {
+
+            return null;
+        }
     }
 
     public static <D extends Donnees> void sauvegarderSurDisque(D donnees, File repertoireDonnees) {
-        //TODO
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fichierDonnees(donnees.getClass(), repertoireDonnees)));
+
+            writer.write(gson.toJson(donnees));
+            writer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static <D extends Donnees> D creerDonnees(Class<D> classeDonnees) {
