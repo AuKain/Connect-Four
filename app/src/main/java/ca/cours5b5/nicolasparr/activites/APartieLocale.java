@@ -3,15 +3,33 @@ package ca.cours5b5.nicolasparr.activites;
 import android.os.Bundle;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.donnees.partie.DPartieLocale;
 import ca.cours5b5.nicolasparr.global.GLog;
+import ca.cours5b5.nicolasparr.modeles.MPartieLocale;
+import ca.cours5b5.nicolasparr.vues.pages.PPartieLocale;
 
-public class APartieLocale extends Activite {
-
+public class APartieLocale extends ActiviteAvecModeles<DPartieLocale, MPartieLocale, PPartieLocale> {
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GLog.appel(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_partie_locale);
+    }
+
+    @Override
+    protected int getIdPage() {
+        return R.id.page_partieLocale;
+    }
+
+    @Override
+    protected Class<DPartieLocale> getClassDonnees() {
+        return DPartieLocale.class;
+    }
+
+    @Override
+    protected MPartieLocale creerModele(DPartieLocale donnees, PPartieLocale page) {
+        return new MPartieLocale(donnees, page);
     }
 
     @Override

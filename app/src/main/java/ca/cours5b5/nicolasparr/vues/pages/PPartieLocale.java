@@ -7,7 +7,9 @@ import android.widget.TextView;
 import java.util.Random;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
 import ca.cours5b5.nicolasparr.global.GLog;
+import ca.cours5b5.nicolasparr.modeles.MPartie;
 import ca.cours5b5.nicolasparr.vues.controles.VGrille;
 
 public class PPartieLocale extends PPartie {
@@ -27,6 +29,21 @@ public class PPartieLocale extends PPartie {
         super(context, attrs, defStyleAttr);
 
         GLog.appel(this);
+    }
+
+    @Override
+    public void creerAffichage(DPartie donnees) {
+        //TODO
+    }
+
+    @Override
+    public void installerCapteurs(MPartie modele) {
+        //TODO
+    }
+
+    @Override
+    public void rafraichirAffichage(DPartie donnees) {
+        //TODO
     }
 
     @Override
