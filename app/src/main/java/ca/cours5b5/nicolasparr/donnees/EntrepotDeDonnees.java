@@ -59,6 +59,8 @@ public class EntrepotDeDonnees {
             D donnees = gson.fromJson(reader.readLine(), classeDonnees);
             reader.close();
 
+            GLog.valeurs("Données lues sur disque: ", gson.toJson(donnees));
+
             return donnees;
 
         } catch (IOException e) {
@@ -74,6 +76,8 @@ public class EntrepotDeDonnees {
 
             writer.write(gson.toJson(donnees));
             writer.close();
+
+            GLog.valeurs("Données sauvegardées sur le disque: ", gson.toJson(donnees));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -101,14 +105,12 @@ public class EntrepotDeDonnees {
     }
 
     public static <D extends Donnees> void sauvegarderDonnees(D donnees, Bundle outState) {
+
         outState.putString(clePourClasseDonnees(donnees.getClass()), gson.toJson(donnees));
+        GLog.valeurs("Données sauvegardées: ", donnees.getClass(), gson.toJson(donnees));
     }
 
     public static <D extends Donnees> boolean siDonneesSontDansEtat(Class<? extends Donnees> classeDonnees, Bundle etat) {
-
-        GLog.valeurs(classeDonnees);
-        GLog.valeurs(etat);
-
         try {
 
             return etat.containsKey(clePourClasseDonnees(classeDonnees));
@@ -119,7 +121,10 @@ public class EntrepotDeDonnees {
     }
 
     public static <D extends Donnees> D donneesDansEtat (Class<D> classeDonnees, Bundle etat) {
-        return gson.fromJson(etat.getString(clePourClasseDonnees(classeDonnees)), classeDonnees);
+        D contenuJson = gson.fromJson(etat.getString(clePourClasseDonnees(classeDonnees)), classeDonnees);
+
+        GLog.valeurs("Données chargées: ", classeDonnees, gson.toJson(contenuJson));
+        return contenuJson;
     }
 
     private static String clePourClasseDonnees(Class<? extends Donnees> classeDonnees) {
