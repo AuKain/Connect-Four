@@ -2,6 +2,7 @@ package ca.cours5b5.nicolasparr.donnees;
 
 import android.os.Bundle;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
@@ -13,9 +14,9 @@ public class EntrepotDeDonnees {
     static Map<Class<? extends Donnees>, Donnees> donneesParId = new HashMap<>();
     private static Gson gson = new GsonBuilder().create();
 
-    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, Bundle etat) {
+    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, Bundle etat, File repertoireDonnees) {
 
-        if (siDonneesSontDansEtat(classeDonnees, etat)) {
+        if (siDonneesSontDansEtat(classeDonnees, etat)) { //TODO si les données ne sont pas dans l'état vérifier le disque ... le reste parreil
 
             return donneesDansEtat(classeDonnees, etat);
         } else if (siDonneesSontDansEntrepot(classeDonnees)) {
@@ -27,6 +28,26 @@ public class EntrepotDeDonnees {
             entreposerDonnees(donnees);
             return donnees;
         }
+    }
+
+    private static String nomFichierPourClasseDonnees(Class<? extends Donnees> classeDonnees) {
+        return null;//TODO
+    }
+
+    private static File fichierDonnees(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
+        return null;//TODO
+    }
+
+    private static boolean siDonneesSontSurDisque(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
+        return false;//TODO
+    }
+
+    private static <D extends Donnees> D donneesSurDisque(Class<D> classeDonnees, File repertoireDonnees) {
+        return null;//TODO
+    }
+
+    public static <D extends Donnees> void sauvegarderSurDisque(D donnees, File repertoireDonnees) {
+        //TODO
     }
 
     private static <D extends Donnees> D creerDonnees(Class<D> classeDonnees) {

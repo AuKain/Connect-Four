@@ -2,6 +2,8 @@ package ca.cours5b5.nicolasparr.activites;
 
 import android.os.Bundle;
 
+import java.io.File;
+
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -29,6 +31,13 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
         EntrepotDeDonnees.sauvegarderDonnees(donnees, outState);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        EntrepotDeDonnees.sauvegarderSurDisque(this.donnees, this.repertoireDonnees());
+    }
+
     private void initialiserDonneesPageModele(Bundle etat) {
         GLog.appel(this);
 
@@ -45,7 +54,11 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     private D recupererDonnees(Bundle etat) {
         GLog.appel(this);
 
-        return EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), etat);
+        return EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), etat, this.repertoireDonnees());
+    }
+
+    private File repertoireDonnees() {
+        return this.getFilesDir(); //TODO pas certain...
     }
 
     protected abstract int getIdPage();
