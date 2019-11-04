@@ -5,11 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
-import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
 import ca.cours5b5.nicolasparr.vues.controles.VGrille;
@@ -34,27 +31,21 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void creerAffichage(DPartie donnees) {
-        switch (donnees.getTailleGrille()) {
-            case PETITE:
-                grille.creerGrille(ETailleGrille.PETITE.getHauteur(), ETailleGrille.PETITE.getLargeur());
-                break;
-            case MOYENNE:
-                grille.creerGrille(ETailleGrille.MOYENNE.getHauteur(), ETailleGrille.MOYENNE.getLargeur());
-                break;
-            case GRANDE:
-                grille.creerGrille(ETailleGrille.GRANDE.getHauteur(), ETailleGrille.GRANDE.getLargeur());
-                break;
-        }
+        grille.creerGrille(donnees.getTailleGrille().getHauteur(), donnees.getTailleGrille().getLargeur());
     }
 
     @Override
-    public void installerCapteurs(MPartie modele) {
-        grille.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO
-            }
-        });
+    public void installerCapteurs(final MPartie modele) {
+        for (int i = 0; i < grille.getGrille().size(); i++) {
+
+            final int finalI = i;
+            grille.getGrille().get(i).getEntete().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    modele.jouerColonne(finalI);
+                }
+            });
+        }
     }
 
     @Override
@@ -69,6 +60,5 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
         joueur1 = this.findViewById(R.id.textJoueurA);
         joueur2 = this.findViewById(R.id.textJoueurB);
         grille = this.findViewById(R.id.grille);
-        grille.creerGrille(new Random().nextInt(4) + 3, new Random().nextInt(4) + 3);
     }
 }

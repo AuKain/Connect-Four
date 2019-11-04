@@ -1,7 +1,5 @@
 package ca.cours5b5.nicolasparr.modeles;
 
-import java.io.UncheckedIOException;
-
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.vues.pages.PageAvecModeles;

@@ -14,6 +14,7 @@ import ca.cours5b5.nicolasparr.global.GLog;
 public class VColonne extends LinearLayout {
 
     ArrayList<VCase> cases;
+    VEntete entete;
 
     public VColonne(Context context) {
         super(context);
@@ -31,13 +32,17 @@ public class VColonne extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    public VEntete getEntete() {
+        return this.entete;
+    }
+
     public VColonne(Context context, int nbCases, int noColonne) {
         super(context);
         GLog.appel(this);
 
         this.setOrientation(VERTICAL);
 
-        this.addView(new VEntete(this.getContext(), noColonne), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f));
+        this.addView(entete = new VEntete(this.getContext(), noColonne), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f));
 
         cases = new ArrayList<>();
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 
-public class DGrille extends Donnees { //TODO
+public class DGrille extends Donnees {
 
     List<DColonne> colonnes;
 

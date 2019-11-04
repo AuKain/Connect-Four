@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorCheckBoxBox">#E5E3EE</color>
+    <color name="colorJoueurA">#FF0061</color>
+    <color name="colorJoueurB">#00A3FF</color>
 </resources>

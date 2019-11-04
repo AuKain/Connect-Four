@@ -10,8 +10,6 @@ import ca.cours5b5.nicolasparr.vues.pages.PParametres;
 
 public class MParametres extends Modele<DParametres, PParametres> {
 
-
-
     public MParametres(DParametres donnees, PParametres page) {
         super(donnees, page);
     }

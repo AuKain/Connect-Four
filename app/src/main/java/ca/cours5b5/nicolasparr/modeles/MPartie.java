@@ -10,4 +10,8 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
     }
 
     //TODO Ajouter des méthodes publiques que la page va appeler pour mettre à jour les données
+
+    public void jouerColonne(int noColonne) {
+
+    }
 }
