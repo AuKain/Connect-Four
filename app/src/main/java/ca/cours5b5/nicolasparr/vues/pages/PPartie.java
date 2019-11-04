@@ -20,8 +20,9 @@ import ca.cours5b5.nicolasparr.vues.controles.VGrille;
 
 public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
-    TextView joueur1, joueur2;
-    VGrille grille;
+    private MPartie modele;
+    private TextView joueur1, joueur2;
+    private VGrille grille;
 
     public PPartie(Context context) {
         super(context);
@@ -38,7 +39,7 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void creerAffichage(DPartie donnees) {
-        grille.creerGrille(donnees.getTailleGrille().getHauteur(), donnees.getTailleGrille().getLargeur());
+        rafraichirAffichage(donnees);
     }
 
     @Override
@@ -53,10 +54,17 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
                 }
             });
         }
+
+        this.modele = modele;
     }
 
     @Override
     public void rafraichirAffichage(DPartie donnees) {
+
+        grille.removeAllViews();
+        grille.creerGrille(donnees.getTailleGrille().getHauteur(), donnees.getTailleGrille().getLargeur());
+        installerCapteurs(this.modele);
+
         List<DColonne> grille = donnees.getGrille().getGrille();
 
         for (int i = 0; i < grille.size(); i++) {
