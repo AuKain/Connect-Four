@@ -58,7 +58,7 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     }
 
     private File repertoireDonnees() {
-        return this.getFilesDir(); //TODO pas certain...
+        return this.getFilesDir();
     }
 
     protected abstract int getIdPage();

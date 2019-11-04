@@ -1,7 +1,6 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Switch;
@@ -11,7 +10,6 @@ import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MParametres;
-import ca.cours5b5.nicolasparr.modeles.Modele;
 
 public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
