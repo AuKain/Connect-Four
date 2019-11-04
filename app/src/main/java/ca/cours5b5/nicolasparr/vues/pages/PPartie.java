@@ -1,12 +1,19 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.donnees.partie.DCase;
+import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
+import ca.cours5b5.nicolasparr.donnees.partie.DGrille;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
+import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
 import ca.cours5b5.nicolasparr.vues.controles.VGrille;
@@ -50,7 +57,17 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void rafraichirAffichage(DPartie donnees) {
-        //TODO
+        List<DColonne> grille = donnees.getGrille().getGrille();
+
+        for (int i = 0; i < grille.size(); i++) {
+            for (int j = 1; j < grille.get(i).getColonne().size(); j++) {
+                DCase leCase = grille.get(i).getColonne().get(j);
+                if (leCase.getCouleur() != null) {
+                    this.grille.getGrille().get(i).getColonne().get(j).setBackgroundColor(getResources()
+                            .getColor(((donnees.getCouleur() == ECouleur.ROUGE)? R.color.colorJoueurA : R.color.colorJoueurB)));
+                }
+            }
+        }
     }
 
     @Override

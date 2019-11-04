@@ -13,8 +13,8 @@ import ca.cours5b5.nicolasparr.global.GLog;
 
 public class VColonne extends LinearLayout {
 
-    ArrayList<VCase> cases;
-    VEntete entete;
+    private ArrayList<VCase> cases;
+    private VEntete entete;
 
     public VColonne(Context context) {
         super(context);
@@ -51,5 +51,9 @@ public class VColonne extends LinearLayout {
             this.addView(cases.get(i), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
         }
 
+    }
+
+    public ArrayList<VCase> getColonne() {
+        return cases;
     }
 }

@@ -32,10 +32,6 @@ public class VGrille extends LinearLayout {
         GLog.appel(this);
     }
 
-    public VEntete getEntete(int noColonne) {
-        return colonnes.get(noColonne).getEntete();
-    }
-
     public void creerGrille(int hauteur, int largeur) {
         GLog.appel(this);
 
