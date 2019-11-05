@@ -50,7 +50,7 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
         donnees.setTailleGrille(parametres.getTailleGrille());
 
-        if (!parametres.isContinuerPartiePrec()){
+        if (!parametres.isContinuerPartiePrec() || grille.getGrille().size() != donnees.getGrille().getGrille().size() || grille.getGrille().get(0).getColonne().size() != donnees.getGrille().getGrille().get(0).getColonne().size()){
             donnees.setGrille(new DGrille(parametres.getTailleGrille().getLargeur(), parametres.getTailleGrille().getHauteur()));
         }
 

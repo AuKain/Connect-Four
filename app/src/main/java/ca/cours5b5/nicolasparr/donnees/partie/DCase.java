@@ -14,7 +14,6 @@ public class DCase extends Donnees {
     public ECouleur getCouleur() {
         return this.couleur;
     }
-
     public void setCouleur(ECouleur couleur) {
         this.couleur = couleur;
     }

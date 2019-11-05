@@ -13,8 +13,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         super(donnees, page);
     }
 
-    //TODO Ajouter des méthodes publiques que la page va appeler pour mettre à jour les données
-
     public void jouerColonne(int noColonne) {
 
         List<DCase> colonnes = donnees.getGrille().getGrille().get(noColonne).getColonne();
