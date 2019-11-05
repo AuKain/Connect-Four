@@ -1,6 +1,7 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import ca.cours5b5.nicolasparr.donnees.partie.DCase;
 import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
 import ca.cours5b5.nicolasparr.donnees.partie.DGrille;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
+import ca.cours5b5.nicolasparr.donnees.partie.DPartieLocale;
 import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
@@ -47,25 +49,12 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
         grille.creerGrille(parametres.getTailleGrille().getHauteur(), parametres.getTailleGrille().getLargeur());
 
         donnees.setTailleGrille(parametres.getTailleGrille());
-        donnees.setGrille(new DGrille(parametres.getTailleGrille().getLargeur(), parametres.getTailleGrille().getHauteur()));
 
-        rafraichirAffichage(donnees);
-    }
-
-    @Override
-    public void installerCapteurs(final MPartie modele) {
-        for (int i = 0; i < grille.getGrille().size(); i++) {
-
-            final int finalI = i;
-            grille.getGrille().get(i).getEntete().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    modele.jouerColonne(finalI);
-                }
-            });
+        if (!parametres.isContinuerPartiePrec()){
+            donnees.setGrille(new DGrille(parametres.getTailleGrille().getLargeur(), parametres.getTailleGrille().getHauteur()));
         }
 
-        this.modele = modele;
+        rafraichirAffichage(donnees);
     }
 
     @Override
@@ -82,6 +71,22 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
                 }
             }
         }
+    }
+
+    @Override
+    public void installerCapteurs(final MPartie modele) {
+        for (int i = 0; i < grille.getGrille().size(); i++) {
+
+            final int finalI = i;
+            grille.getGrille().get(i).getEntete().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    modele.jouerColonne(finalI);
+                }
+            });
+        }
+
+        this.modele = modele;
     }
 
     @Override

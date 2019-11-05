@@ -2,6 +2,7 @@ package ca.cours5b5.nicolasparr.modeles;
 
 import java.util.List;
 
+import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
 import ca.cours5b5.nicolasparr.donnees.partie.DCase;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
 import ca.cours5b5.nicolasparr.vues.pages.PPartie;
