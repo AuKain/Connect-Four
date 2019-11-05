@@ -14,7 +14,6 @@ public class APartieLocale extends ActiviteAvecModeles<DPartieLocale, MPartieLoc
     protected void onCreate(Bundle savedInstanceState) {
         GLog.appel(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.page_partie_locale);
     }
 
     @Override
