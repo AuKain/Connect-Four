@@ -42,7 +42,7 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void creerAffichage(DPartie donnees) {
-
+        GLog.appel(this);
         DParametres parametres = EntrepotDeDonnees.obtenirDonnees(DParametres.class, null, this.getContext().getFilesDir());
 
         grille.removeAllViews();
@@ -59,6 +59,7 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void rafraichirAffichage(DPartie donnees) {
+        GLog.appel(this);
 
         List<DColonne> grille = donnees.getGrille().getGrille();
 
@@ -75,6 +76,8 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void installerCapteurs(final MPartie modele) {
+        GLog.appel(this);
+
         for (int i = 0; i < grille.getGrille().size(); i++) {
 
             final int finalI = i;

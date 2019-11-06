@@ -5,15 +5,18 @@ import java.util.List;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
 import ca.cours5b5.nicolasparr.donnees.partie.DCase;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
+import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.vues.pages.PPartie;
 
 public abstract class MPartie extends Modele<DPartie, PPartie> {
 
     public MPartie(DPartie donnees, PPartie page) {
         super(donnees, page);
+        GLog.appel(this);
     }
 
     public void jouerColonne(int noColonne) {
+        GLog.appel(this);
 
         List<DCase> colonnes = donnees.getGrille().getGrille().get(noColonne).getColonne();
 

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.cours5b5.nicolasparr.donnees.Donnees;
+import ca.cours5b5.nicolasparr.global.GLog;
 
 public class DGrille extends Donnees {
 
     List<DColonne> colonnes;
 
     public DGrille (int nbColonnes, int nbCases) {
+        GLog.appel(this);
         colonnes = new ArrayList<>();
 
         for (int i = 0; i < nbColonnes; i++) {
@@ -17,15 +19,8 @@ public class DGrille extends Donnees {
         }
     }
 
-    public DColonne getColonne (int noColonne) {
-        return this.colonnes.get(noColonne);
-    }
-
     public List<DColonne> getGrille () {
+        GLog.valeurs(this.colonnes);
         return this.colonnes;
-    }
-
-    public void setColonne (DColonne colonne) {
-        this.colonnes.add(colonne);
     }
 }

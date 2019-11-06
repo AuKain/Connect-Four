@@ -18,7 +18,5 @@ public class PPartieLocale extends PPartie {
 
     public PPartieLocale(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        GLog.appel(this);
     }
 }

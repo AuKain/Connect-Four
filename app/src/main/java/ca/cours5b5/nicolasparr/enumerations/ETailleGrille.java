@@ -1,11 +1,14 @@
 package ca.cours5b5.nicolasparr.enumerations;
 
+import ca.cours5b5.nicolasparr.global.GLog;
+
 public enum ETailleGrille {
     PETITE,
     MOYENNE,
     GRANDE;
 
     public int getHauteur() {
+        GLog.appel(this);
         switch (this) {
             case PETITE:
                 return 4;
@@ -19,7 +22,7 @@ public enum ETailleGrille {
     }
 
     public int getLargeur() {
-
+        GLog.appel(this);
         switch (this) {
             case PETITE:
                 return 5;
