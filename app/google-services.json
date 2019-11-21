@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "720727831869",
+    "firebase_url": "https://connectfour-9e3cd.firebaseio.com",
+    "project_id": "connectfour-9e3cd",
+    "storage_bucket": "connectfour-9e3cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720727831869:android:37dbe4c511a1709ba70154",
+        "android_client_info": {
+          "package_name": "ca.cours5b5.nicolasparr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720727831869-87o45qlvvv9upt7f9vqf73i806hbbt25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.cours5b5.nicolasparr",
+            "certificate_hash": "5b45deba683a883f582307401380cf1c9b0b8ba4"
+          }
+        },
+        {
+          "client_id": "720727831869-6dg7f3qa4sf303kh99ogh4671an1gbvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBow0caW7urYrvVnXde3J9ossZenYHobN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720727831869-6dg7f3qa4sf303kh99ogh4671an1gbvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

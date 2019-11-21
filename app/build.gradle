@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/kain/Documents/Projets/ConnectFour/debug.jks')
+            storePassword 'password'
+            keyAlias = 'key0'
+            keyPassword 'password'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "ca.cours5b5.nicolasparr"
@@ -25,8 +33,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
+    implementation 'com.firebaseui:firebase-ui-auth:5.1.0'
 
     // Atelier09
     implementation 'com.google.code.gson:gson:2.8.5'
 }
+
+apply plugin: 'com.google.gms.google-services'
