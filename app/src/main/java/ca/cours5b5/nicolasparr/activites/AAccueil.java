@@ -19,6 +19,27 @@ public class AAccueil extends ActiviteAvecControles {
     Button boutonPartieReseau;
     Button boutonParametres;
 
+    final static int CODE_LOGIN = 122;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //TODO ajuster les boutons quand l'usager est connecté/déconnecter
+        if (requestCode == CODE_LOGIN) {
+            if (resultCode == RESULT_OK) {
+                boutonPartieReseau.setEnabled(true);
+            } else {
+                boutonPartieReseau.setEnabled(false);
+            }
+        }
+    }
+
+    private void effectuerConnexion() {
+        //TODO effectuer la connexion
+    }
+
+    private void effectuerDeconnexion() {
+        //TODO effectuer la déconnexion
+    }
 
     @Override
     protected int getLayoutId() {
@@ -45,6 +66,7 @@ public class AAccueil extends ActiviteAvecControles {
 
         installerCapteurPartieLocale();
         installerCapteurParametres();
+        //TODO installer capteur partie en ligne
     }
 
     private void installerCapteurPartieLocale(){
