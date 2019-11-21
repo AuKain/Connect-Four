@@ -1,31 +1,25 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.Random;
 
 import ca.cours5b5.nicolasparr.R;
-import ca.cours5b5.nicolasparr.donnees.DParametres;
-import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
-import ca.cours5b5.nicolasparr.donnees.partie.DCase;
-import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
-import ca.cours5b5.nicolasparr.donnees.partie.DGrille;
+import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
-import ca.cours5b5.nicolasparr.donnees.partie.DPartieLocale;
-import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
+import ca.cours5b5.nicolasparr.modeles.Modele;
 import ca.cours5b5.nicolasparr.vues.controles.VGrille;
 
 public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
-    private MPartie modele;
-    private TextView joueur1, joueur2;
-    private VGrille grille;
+    TextView texteNomJoueur01;
+    TextView texteNomJoeuur02;
+
+    VGrille grille;
 
     public PPartie(Context context) {
         super(context);
@@ -37,67 +31,91 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     public PPartie(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        GLog.appel(this);
     }
 
     @Override
-    public void creerAffichage(DPartie donnees) {
+    protected void onFinishInflate() {
         GLog.appel(this);
-        DParametres parametres = EntrepotDeDonnees.obtenirDonnees(DParametres.class, null, this.getContext().getFilesDir());
 
-        grille.removeAllViews();
-        grille.creerGrille(parametres.getTailleGrille().getHauteur(), parametres.getTailleGrille().getLargeur());
+        super.onFinishInflate();
+        adapterAffichageSiPaysage();
+    }
 
-        donnees.setTailleGrille(parametres.getTailleGrille());
+    @Override
+    public void installerCapteurs(MPartie modele) {
+        GLog.appel(this);
 
-        if (!parametres.isContinuerPartiePrec() || grille.getGrille().size() != donnees.getGrille().getGrille().size() || grille.getGrille().get(0).getColonne().size() != donnees.getGrille().getGrille().get(0).getColonne().size()){
-            donnees.setGrille(new DGrille(parametres.getTailleGrille().getLargeur(), parametres.getTailleGrille().getHauteur()));
-        }
+        grille.installerCapteurs(modele);
 
-        rafraichirAffichage(donnees);
+    }
+
+    public void creerAffichage(DPartie donnees){
+        GLog.appel(this);
+
+        int hauteur = donnees.getTailleGrille().getHauteur();
+        int largeur = donnees.getTailleGrille().getLargeur();
+
+        grille.creerGrille(hauteur, largeur);
+
     }
 
     @Override
     public void rafraichirAffichage(DPartie donnees) {
         GLog.appel(this);
 
-        List<DColonne> grille = donnees.getGrille().getGrille();
+        grille.afficher(donnees.getGrille());
 
-        for (int i = 0; i < grille.size(); i++) {
-            for (int j = 0; j < grille.get(i).getColonne().size(); j++) {
-                DCase leCase = grille.get(i).getColonne().get(j);
-                if (leCase.getCouleur() != null) {
-                    this.grille.getGrille().get(i).getColonne().get(j).setBackgroundColor(getResources()
-                            .getColor(((leCase.getCouleur() == ECouleur.ROUGE)? R.color.colorJoueurA : R.color.colorJoueurB)));
-                }
-            }
-        }
     }
 
-    @Override
-    public void installerCapteurs(final MPartie modele) {
-        GLog.appel(this);
-
-        for (int i = 0; i < grille.getGrille().size(); i++) {
-
-            final int finalI = i;
-            grille.getGrille().get(i).getEntete().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    modele.jouerColonne(finalI);
-                }
-            });
-        }
-
-        this.modele = modele;
-    }
 
     @Override
     protected void recupererControles() {
         GLog.appel(this);
 
-        joueur1 = this.findViewById(R.id.textJoueurA);
-        joueur2 = this.findViewById(R.id.textJoueurB);
-        grille = this.findViewById(R.id.grille);
+        texteNomJoueur01 = findViewById(R.id.texte_joueur_un);
+        texteNomJoeuur02 = findViewById(R.id.texte_joueur_deux);
+
+        grille = findViewById(R.id.grille);
+
+        adapterAffichageSiPaysage();
+
     }
+
+    private void adapterAffichageSiPaysage(){
+        GLog.appel(this);
+
+        if(! getResources().getBoolean(R.bool.portrait)){
+
+            adapterAffichagePaysage();
+
+        }
+    }
+
+    private void adapterAffichagePaysage(){
+        GLog.appel(this);
+
+        texteDeHautEnBas(texteNomJoueur01, getResources().getString(R.string.joueur01));
+        texteDeHautEnBas(texteNomJoeuur02, getResources().getString(R.string.joueur02));
+
+        texteNomJoueur01.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+        texteNomJoeuur02.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+
+    }
+
+    private void texteDeHautEnBas(TextView textView, String texte){
+        GLog.appel(this);
+
+        String texteHautEnBas = "";
+
+        if(texte.length() > 0){
+            texteHautEnBas += texte.charAt(0);
+        }
+
+        for(int i = 1; i < texte.length(); i++){
+            texteHautEnBas += "\n" + texte.charAt(i);
+        }
+
+        textView.setText(texteHautEnBas);
+    }
+
 }

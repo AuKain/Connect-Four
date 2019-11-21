@@ -7,14 +7,19 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.donnees.partie.DCase;
+import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
 import ca.cours5b5.nicolasparr.global.GLog;
+import ca.cours5b5.nicolasparr.modeles.MPartie;
 
 public class VColonne extends LinearLayout {
 
-    private ArrayList<VCase> cases;
     private VEntete entete;
+    private VCase[] cases;
 
     public VColonne(Context context) {
         super(context);
@@ -32,28 +37,102 @@ public class VColonne extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public VEntete getEntete() {
-        return this.entete;
-    }
 
-    public VColonne(Context context, int nbCases, int noColonne) {
+    public VColonne(Context context, int hauteur, int indiceColonne) {
         super(context);
+
         GLog.appel(this);
 
-        this.setOrientation(VERTICAL);
+        this.cases = new VCase[hauteur];
 
-        this.addView(entete = new VEntete(this.getContext(), noColonne), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 2f));
+        creerColonne(hauteur, indiceColonne);
+    }
 
-        cases = new ArrayList<>();
 
-        for (int i = 0; i < nbCases; i++) {
-            cases.add(new VCase(this.getContext(), nbCases - i - 1, noColonne));
-            this.addView(cases.get(i), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+    private void creerColonne(int hauteur, int indiceColonne){
+        GLog.appel(this);
+
+        this.setOrientation(LinearLayout.VERTICAL);
+
+        ajouterEntete(indiceColonne);
+
+        ajouterCases(hauteur, indiceColonne);
+    }
+
+
+    private void ajouterCases(int hauteur, int indiceColonne) {
+        GLog.appel(this);
+
+        LayoutParams paramsCase = getParamsCase();
+
+        // Ajouter les cases à l'envers!
+        for(int indiceRangee = hauteur - 1; indiceRangee >= 0; indiceRangee--){
+            VCase vCase = new VCase(getContext(), indiceRangee, indiceColonne);
+            this.addView(vCase, paramsCase);
+
+            cases[indiceRangee] = vCase;
         }
+    }
+
+    private LayoutParams getParamsCase() {
+        GLog.appel(this);
+
+        LayoutParams paramsCase = new LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1f);
+
+        paramsCase.leftMargin = getResources().getInteger(R.integer.marge_case);
+        paramsCase.topMargin = getResources().getInteger(R.integer.marge_case);
+        paramsCase.rightMargin = getResources().getInteger(R.integer.marge_case);
+        paramsCase.bottomMargin = getResources().getInteger(R.integer.marge_case);
+        return paramsCase;
+    }
+
+
+    private void ajouterEntete(int indiceColonne) {
+        GLog.appel(this);
+
+        entete = new VEntete(getContext(), indiceColonne);
+
+        LayoutParams layoutParams = getParamsEntete();
+
+        this.addView(entete, layoutParams);
+    }
+
+    private LayoutParams getParamsEntete() {
+        GLog.appel(this);
+
+        LayoutParams layoutParams = new LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                2f);
+
+        layoutParams.leftMargin = getResources().getInteger(R.integer.marge_case);
+        layoutParams.rightMargin = getResources().getInteger(R.integer.marge_case);
+        return layoutParams;
+    }
+
+
+    public void installerCapteur(MPartie modele) {
+        GLog.appel(this);
+
+        entete.installerCapteur(modele);
 
     }
 
-    public ArrayList<VCase> getColonne() {
-        return cases;
+        public void afficher(DColonne dColonne) {
+        GLog.appel(this);
+
+        if(dColonne != null){
+
+            List<DCase> casesDonnees = dColonne.getCases();
+
+            for(int i = 0; i < casesDonnees.size(); i++) {
+                cases[i].afficher(casesDonnees.get(i));
+            }
+        }
     }
+
+
 }

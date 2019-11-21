@@ -1,23 +1,29 @@
 package ca.cours5b5.nicolasparr.vues.pages;
 
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.CheckBox;
+import android.widget.Switch;
 
 import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
+import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MParametres;
 
+import static ca.cours5b5.nicolasparr.enumerations.ETailleGrille.MOYENNE;
+import static ca.cours5b5.nicolasparr.enumerations.ETailleGrille.PETITE;
+
 public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
-    CheckBox checkBoxS;
-    CheckBox checkBoxM;
-    CheckBox checkBoxL;
+    private Switch switchContinuerPartie;
 
-    Switch switchResume;
+    private CheckBox checkPetite;
+    private CheckBox checkMoyenne;
+    private CheckBox checkGrande;
+
 
     public PParametres(Context context) {
         super(context);
@@ -34,96 +40,107 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
     @Override
     public void creerAffichage(DParametres donnees) {
         GLog.appel(this);
-
-        switch (donnees.getTailleGrille()) {
-            case PETITE:
-                checkBoxS.setChecked(true);
-                checkBoxM.setChecked(false);
-                checkBoxL.setChecked(false);
-                break;
-            case MOYENNE:
-                checkBoxS.setChecked(false);
-                checkBoxM.setChecked(true);
-                checkBoxL.setChecked(false);
-                break;
-            case GRANDE:
-                checkBoxS.setChecked(false);
-                checkBoxM.setChecked(false);
-                checkBoxL.setChecked(true);
-                break;
-        }
-
-        switchResume.setChecked(donnees.isContinuerPartiePrec());
-    }
-
-    @Override
-    public void installerCapteurs(final MParametres modele) {
-        GLog.appel(this);
-
-        checkBoxS.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                modele.setCheckPetit(checkBoxS, checkBoxM, checkBoxL);
-            }
-        });
-        checkBoxM.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                modele.setCheckMoyen(checkBoxS, checkBoxM, checkBoxL);
-            }
-        });
-        checkBoxL.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                modele.setCheckGrand(checkBoxS, checkBoxM, checkBoxL);
-            }
-        });
-        switchResume.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                modele.setSwitchContinuer(switchResume);
-            }
-        });
     }
 
     @Override
     public void rafraichirAffichage(DParametres donnees) {
         GLog.appel(this);
 
-        switch (donnees.getTailleGrille()) {
-            case PETITE:
-                checkBoxS.setChecked(true);
-                checkBoxM.setChecked(false);
-                checkBoxL.setChecked(false);
-                break;
-            case MOYENNE:
-                checkBoxS.setChecked(false);
-                checkBoxM.setChecked(true);
-                checkBoxL.setChecked(false);
-                break;
-            case GRANDE:
-                checkBoxS.setChecked(false);
-                checkBoxM.setChecked(false);
-                checkBoxL.setChecked(true);
-                break;
-        }
+        rafraichirTailleGrille(donnees.getTailleGrille());
 
-        switchResume.setChecked(donnees.isContinuerPartiePrec());
+        rafraichirContinuer(donnees.siContinuerPartiePrecedente());
+
+
     }
+
+    @Override
+    public void installerCapteurs(final MParametres modele) {
+        GLog.appel(this);
+
+        checkPetite.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLog.appel(this);
+
+                modele.choisirTaille(PETITE);
+            }
+        });
+
+        checkMoyenne.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLog.appel(this);
+
+                modele.choisirTaille(MOYENNE);
+            }
+        });
+
+        checkGrande.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLog.appel(this);
+
+                modele.choisirTaille(ETailleGrille.GRANDE);
+            }
+        });
+
+        switchContinuerPartie.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GLog.appel(this);
+
+                modele.choisirSiContinuerPartie(switchContinuerPartie.isChecked());
+            }
+        });
+
+
+    }
+
+    private void rafraichirTailleGrille(ETailleGrille tailleGrille) {
+        GLog.appel(this);
+
+        switch (tailleGrille) {
+
+            case PETITE:
+                checkPetite.setChecked(true);
+                checkMoyenne.setChecked(false);
+                checkGrande.setChecked(false);
+                break;
+
+            case MOYENNE:
+                checkPetite.setChecked(false);
+                checkMoyenne.setChecked(true);
+                checkGrande.setChecked(false);
+                break;
+
+            case GRANDE:
+                checkPetite.setChecked(false);
+                checkMoyenne.setChecked(false);
+                checkGrande.setChecked(true);
+                break;
+
+        }
+    }
+
+
+    private void rafraichirContinuer(boolean siContinuerPartiePrecedente) {
+        GLog.appel(this);
+
+        switchContinuerPartie.setChecked(siContinuerPartiePrecedente);
+
+    }
+
 
     @Override
     protected void recupererControles() {
         GLog.appel(this);
 
-        checkBoxS = findViewById(R.id.checkBoxS);
-        checkBoxM = findViewById(R.id.checkBoxM);
-        checkBoxL = findViewById(R.id.checkBoxL);
-        switchResume = findViewById(R.id.switchResume);
+        switchContinuerPartie = findViewById(R.id.switch_continuer_partie);
 
-        GLog.valeurs(checkBoxS, checkBoxM, checkBoxL, switchResume);
+        checkPetite = findViewById(R.id.check_petite_grille);
+        checkMoyenne = findViewById(R.id.check_moyenne_grille);
+        checkGrande = findViewById(R.id.check_grande_grille);
+
+        GLog.valeurs(switchContinuerPartie, checkPetite, checkMoyenne, checkGrande);
     }
 }

@@ -1,31 +1,35 @@
 package ca.cours5b5.nicolasparr.donnees.partie;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.cours5b5.nicolasparr.donnees.Donnees;
+import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 
-public class DColonne extends Donnees {
+public class DColonne {
 
-    private List<DCase> cases;
+    private List<DCase> cases = new ArrayList<>();
 
-    public DColonne (int nbCases) {
+    public List<DCase> getCases() {
         GLog.appel(this);
-        cases = new ArrayList<>();
 
-        for (int i = 0; i < nbCases; i++) {
-            cases.add(new DCase());
-        }
-    }
-
-    public List<DCase> getColonne() {
-        GLog.valeurs(this.cases);
         return cases;
     }
 
-    public void setColonne(List<DCase> colonne) {
-        this.cases = colonne;
-        GLog.valeurs(colonne);
+    public void setCases(List<DCase> cases) {
+        GLog.appel(this);
+
+        this.cases = cases;
+    }
+
+    public void ajouterJeton(ECouleur couleur) {
+        GLog.appel(this);
+
+        DCase _case = new DCase();
+
+        _case.setCouleur(couleur);
+
+        cases.add(_case);
     }
 }

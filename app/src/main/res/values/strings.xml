@@ -1,14 +1,29 @@
 <resources>
-    <string name="app_name">NicolasParr</string>
-    <string name="chkBoxTitle">Prefered board size for new games</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="large">Large</string>
-    <string name="resume">Resume previous game</string>
-    <string name="settings">Settings</string>
-    <string name="connection">Login</string>
-    <string name="play">Play</string>
-    <string name="online">Play on-line</string>
-    <string name="nameA">Alis</string>
-    <string name="nameB">Bob</string>
+    <string translatable="false" name="app_name">NicolasParr</string>
+    <string name="bonjour">Bonjour!</string>
+
+    <string name="parametres">Paramètres</string>
+    <string name="taille_de_la_grille">Taille préférée pour une nouvelle partie</string>
+    <string name="petite">Petite</string>
+    <string name="moyenne">Moyenne</string>
+    <string name="grande">Grande</string>
+
+    <string name="continuer_partie_precedente">Continuer partie précédente</string>
+
+    <string name="jouer">Jouer</string>
+    <string name="jouer_enligne">Jouer en-ligne</string>
+
+    <string name="connexion">Connexion</string>
+    <string name="deconnexion">Déconnexion</string>
+
+    <string name="joueur01">Alice</string>
+    <string name="joueur02">Benoit</string>
+
+    <string name="entete" translatable="false">↓</string>
+
+    <string name="rouge">Rouge</string>
+    <string name="bleu">Bleu</string>
+
+
+
 </resources>

@@ -3,30 +3,34 @@ package ca.cours5b5.nicolasparr.activites;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+
+import javax.microedition.khronos.opengles.GL;
+
+import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 
 public abstract class Activite extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         GLog.appel(this);
-
-        GLog.valeurs("état, " + savedInstanceState);
+        GLog.valeurs("état", savedInstanceState);
 
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
 
-        int contentViewId = getLayoutId();
-
-        setContentView(contentViewId);
     }
 
+    protected abstract int getLayoutId();
+
+
     @Override
-    protected void onStart() {
+    protected void onSaveInstanceState(Bundle outState) {
         GLog.appel(this);
-        super.onStart();
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -36,21 +40,9 @@ public abstract class Activite extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
-        GLog.appel(this);
-        super.onRestart();
-    }
-
-    @Override
     protected void onPause() {
         GLog.appel(this);
         super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        GLog.appel(this);
-        super.onStop();
     }
 
     @Override
@@ -59,17 +51,10 @@ public abstract class Activite extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        GLog.appel(this);
-        super.onSaveInstanceState(outState);
+    protected File repertoireDonnees(){
+        GLog.appel(EntrepotDeDonnees.class);
+
+        return getDataDir();
     }
 
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        GLog.appel(this);
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    protected abstract int getLayoutId();
 }

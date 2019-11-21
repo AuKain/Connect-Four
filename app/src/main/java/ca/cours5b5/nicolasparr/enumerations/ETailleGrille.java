@@ -1,37 +1,60 @@
 package ca.cours5b5.nicolasparr.enumerations;
 
+
+import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
 
 public enum ETailleGrille {
+
     PETITE,
     MOYENNE,
     GRANDE;
 
     public int getHauteur() {
         GLog.appel(this);
+
         switch (this) {
             case PETITE:
-                return 4;
+
+                return GConstantes.HAUTEUR_PETITE_GRILLE;
+
             case MOYENNE:
-                return 6;
+
+                return GConstantes.HAUTEUR_MOYENNE_GRILLE;
+
             case GRANDE:
-                return 7;
-            default:
-                throw new RuntimeException("If you reach this.......... welp I fucked up...");
+
+                return GConstantes.HAUTEUR_GRANDE_GRILLE;
         }
+
+        throw new RuntimeException("Taille inconnue: " + this.name());
+
     }
 
     public int getLargeur() {
         GLog.appel(this);
+
         switch (this) {
             case PETITE:
-                return 5;
+
+                return GConstantes.LARGEUR_PETITE_GRILLE;
+
             case MOYENNE:
-                return 7;
+
+                return GConstantes.LARGEUR_MOYENNE_GRILLE;
+
             case GRANDE:
-                return 10;
-            default:
-                throw new RuntimeException("If you reach this.......... welp I fucked up...");
+
+                return GConstantes.LARGEUR_GRANDE_GRILLE;
         }
+
+        throw new RuntimeException("Taille inconnue: " + this.name());
+
     }
+
+
+
+
+
+
 }

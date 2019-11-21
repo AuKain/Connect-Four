@@ -1,35 +1,66 @@
 package ca.cours5b5.nicolasparr.modeles;
 
-import java.util.List;
 
-import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
-import ca.cours5b5.nicolasparr.donnees.partie.DCase;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
+import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.vues.pages.PPartie;
+import ca.cours5b5.nicolasparr.vues.pages.PPartieLocale;
 
 public abstract class MPartie extends Modele<DPartie, PPartie> {
 
-    public MPartie(DPartie donnees, PPartie page) {
+
+    public MPartie(DPartie donnees, PPartieLocale page) {
         super(donnees, page);
-        GLog.appel(this);
     }
 
-    public void jouerColonne(int noColonne) {
+    public void jouerCoupIci(int indiceColonne){
         GLog.appel(this);
 
-        List<DCase> colonnes = donnees.getGrille().getGrille().get(noColonne).getColonne();
+        effectuerCoup(indiceColonne);
 
-        for (int i = colonnes.size() - 1; i >= 0; i--) {
-            if (colonnes.get(i).getCouleur() == null) {
-                colonnes.get(i).setCouleur(donnees.getCouleur());
-                donnees.prochaineCouleur();
-                break;
-            }
-            if (i == 0) {
-                break;
-            }
+        this.page.rafraichirAffichage(this.donnees);
+    }
+
+    protected void effectuerCoup(int indiceColonne){
+        GLog.appel(this);
+
+        ajouterJeton(indiceColonne);
+        prochainJoueur();
+    }
+
+
+    protected void ajouterJeton(int indiceColonne){
+        GLog.appel(this);
+
+        if(!siColonnePleine(indiceColonne)){
+            ECouleur prochaineCouleur = donnees.getProchaineCouleur();
+            donnees.getGrille().ajouterJeton(indiceColonne, prochaineCouleur);
         }
-        page.rafraichirAffichage(donnees);
+
+    }
+
+
+    protected void prochainJoueur(){
+        GLog.appel(this);
+
+        prochaineCouleur();
+    }
+
+    private boolean siColonnePleine(int indiceColonne){
+        GLog.appel(this);
+
+        return donnees.siColonnePleine(indiceColonne);
+
+    }
+
+    private void prochaineCouleur() {
+        GLog.appel(this);
+
+        if(donnees.getProchaineCouleur() == ECouleur.ROUGE){
+            donnees.setProchaineCouleur(ECouleur.BLEU);
+        }else{
+            donnees.setProchaineCouleur(ECouleur.ROUGE);
+        }
     }
 }

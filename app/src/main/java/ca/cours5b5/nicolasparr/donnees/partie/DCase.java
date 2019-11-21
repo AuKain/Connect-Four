@@ -1,23 +1,21 @@
 package ca.cours5b5.nicolasparr.donnees.partie;
 
-import android.graphics.Color;
-
-import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
 
-public class DCase extends Donnees {
+public class DCase {
 
     private ECouleur couleur;
 
-    public DCase(){ }
-
     public ECouleur getCouleur() {
-        GLog.valeurs(this.couleur);
-        return this.couleur;
+        GLog.appel(this);
+
+        return couleur;
     }
+
     public void setCouleur(ECouleur couleur) {
+        GLog.appel(this);
+
         this.couleur = couleur;
-        GLog.valeurs(couleur);
     }
 }

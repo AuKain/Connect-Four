@@ -10,60 +10,109 @@ import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.Modele;
 import ca.cours5b5.nicolasparr.vues.pages.PageAvecModeles;
 
-public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P extends PageAvecModeles> extends Activite {
+public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P extends PageAvecModeles>
+
+        extends Activite {
 
     private D donnees;
     private P page;
-    private M modele;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GLog.appel(this);
 
         super.onCreate(savedInstanceState);
+
         initialiserDonneesPageModele(savedInstanceState);
+
+    }
+
+    private void initialiserDonneesPageModele(Bundle etat){
+        GLog.appel(this);
+
+        donnees = recupererDonnees(etat);
+
+        initialiserPageModele(donnees);
+
+    }
+
+    private void initialiserPageModele(D donnees){
+        GLog.appel(this);
+
+        initialiserPage(donnees);
+
+        initialiserModele(donnees, page);
+
+    }
+
+    private void initialiserPage(D donnees) {
+        GLog.appel(this);
+
+        page = recupererPage();
+        page.creerAffichage(donnees);
+    }
+
+    private void initialiserModele(D donnees, P page){
+        GLog.appel(this);
+
+        creerModele(donnees, page);
+    }
+
+
+
+    private P recupererPage() {
+        GLog.appel(this);
+
+        int idPage = getIdPage();
+
+        return findViewById(idPage);
+    }
+
+    protected D recupererDonnees(Bundle etat) {
+        GLog.appel(this);
+
+        Class<D> classeDonnees = getClassDonnees();
+
+        File repertoireDonnees = repertoireDonnees();
+
+        return EntrepotDeDonnees.obtenirDonnees(classeDonnees, etat, repertoireDonnees);
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        GLog.appel(this);
+
         super.onSaveInstanceState(outState);
 
-        EntrepotDeDonnees.sauvegarderDonnees(donnees, outState);
+        EntrepotDeDonnees.sauvegarderDansEtat(donnees, outState);
+
     }
 
     @Override
     protected void onPause() {
+        GLog.appel(this);
         super.onPause();
 
-        EntrepotDeDonnees.sauvegarderSurDisque(this.donnees, this.repertoireDonnees());
+        File repertoireDonnees = repertoireDonnees();
+
+        EntrepotDeDonnees.sauvegarderSurDisque(donnees, repertoireDonnees);
+
     }
 
-    private void initialiserDonneesPageModele(Bundle etat) {
+
+    protected void onResume() {
         GLog.appel(this);
 
-        initialiserPageModele(this.donnees = recupererDonnees(etat));
-    }
+        super.onResume();
 
-    private void initialiserPageModele(D donnees) {
-        GLog.appel(this);
+        page.rafraichirAffichage(donnees);
 
-        (this.page = findViewById(getIdPage())).creerAffichage(donnees);
-        this.modele = creerModele(donnees, this.page);
-    }
-
-    private D recupererDonnees(Bundle etat) {
-        GLog.appel(this);
-
-        return EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), etat, this.repertoireDonnees());
-    }
-
-    private File repertoireDonnees() {
-        return this.getFilesDir();
     }
 
     protected abstract int getIdPage();
 
     protected abstract Class<D> getClassDonnees();
 
-    protected abstract M creerModele(D donnees, P page);
+    protected abstract void creerModele(D donnees, P page);
 }

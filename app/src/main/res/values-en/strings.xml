@@ -1,0 +1,27 @@
+<resources>
+    <string name="bonjour">Hello!</string>
+
+    <string name="parametres">Settings</string>
+
+    <string name="taille_de_la_grille">Preferred board size for new games</string>
+
+    <string name="petite">Small</string>
+    <string name="moyenne">Medium</string>
+    <string name="grande">Large</string>
+
+    <string name="continuer_partie_precedente">Resume previous game</string>
+
+    <string name="jouer">Play</string>
+    <string name="jouer_enligne">Play Online</string>
+
+    <string name="connexion">Login</string>
+    <string name="deconnexion">Logout</string>
+
+    <string name="joueur01">Alis</string>
+    <string name="joueur02">Bob</string>
+
+    <string name="rouge">Red</string>
+    <string name="bleu">Blue</string>
+
+
+</resources>

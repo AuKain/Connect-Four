@@ -1,19 +1,25 @@
 package ca.cours5b5.nicolasparr.vues.controles;
 
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
+import java.util.Random;
 
+import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
+import ca.cours5b5.nicolasparr.donnees.partie.DGrille;
 import ca.cours5b5.nicolasparr.global.GLog;
+import ca.cours5b5.nicolasparr.modeles.MPartie;
+
 
 public class VGrille extends LinearLayout {
 
-    private ArrayList<VColonne> colonnes;
+    VColonne[] colonnes;
 
     public VGrille(Context context) {
         super(context);
@@ -29,22 +35,64 @@ public class VGrille extends LinearLayout {
 
     public VGrille(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        GLog.appel(this);
     }
 
     public void creerGrille(int hauteur, int largeur) {
         GLog.appel(this);
 
-        colonnes = new ArrayList<>();
+        setOrientation(LinearLayout.HORIZONTAL);
 
-        for(int i = 0; i < largeur; i++) {
-            colonnes.add(new VColonne(this.getContext(), hauteur, i));
+        ajouterColonnes(hauteur, largeur);
 
-            this.addView(colonnes.get(i), new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+    }
+
+    private void ajouterColonnes(int hauteur, int largeur) {
+        GLog.appel(this);
+
+        colonnes = new VColonne[largeur];
+
+        for (int indiceColonne = 0; indiceColonne < largeur; indiceColonne++) {
+
+            VColonne vColonne = new VColonne(getContext(), hauteur, indiceColonne);
+
+            LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+
+            this.addView(vColonne, layoutParams);
+
+            colonnes[indiceColonne] = vColonne;
+
         }
     }
 
-    public ArrayList<VColonne> getGrille() {
-        return colonnes;
+    public void detruireGrille() {
+        GLog.appel(this);
+
+        this.removeAllViews();
+        colonnes = null;
+
+    }
+
+    public void installerCapteurs(MPartie modele){
+        GLog.appel(this);
+
+        for(int i = 0; i < colonnes.length; i++){
+            colonnes[i].installerCapteur(modele);
+        }
+
+    }
+
+    public void afficher(DGrille dGrille) {
+        GLog.appel(this);
+
+        for(int i = 0; i < colonnes.length; i++){
+
+            int cle = i;
+
+            DColonne dColonne = dGrille.getColonnes().get(cle);
+
+            colonnes[i].afficher(dColonne);
+
+        }
     }
 }
+

@@ -3,11 +3,7 @@ package ca.cours5b5.nicolasparr.vues.pages;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import ca.cours5b5.nicolasparr.global.GLog;
-
 public class PPartieLocale extends PPartie {
-
-
     public PPartieLocale(Context context) {
         super(context);
     }
