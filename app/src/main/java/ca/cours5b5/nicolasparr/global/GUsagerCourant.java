@@ -9,6 +9,10 @@ public class GUsagerCourant {
     }
 
     public static String getId() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try {
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 }
