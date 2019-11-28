@@ -25,8 +25,6 @@ import java.util.Map;
 
 public class EntrepotDeDonnees {
 
-    private static Gson gson = new GsonBuilder().create();
-    private static final Map<Class<? extends Donnees>, Donnees> entrepot = new HashMap<>();
     private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     private static <D extends Donnees> D creerDonnees(Class<D> classeDonnees){
@@ -63,7 +61,7 @@ public class EntrepotDeDonnees {
         return null;
     }
 
-    private static <D extends Donnees> void sauvegarderDonneesSurServeur (D donnees) {
+    public static <D extends Donnees> void sauvegarderDonneesSurServeur (D donnees) {
         //TODO Sauvegarder sur Firestore
     }
 
@@ -88,11 +86,7 @@ public class EntrepotDeDonnees {
     }
 
     public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, final RetourDonnees<D> retourDonnees){
-
         //TODO Appeler chargerDonneesDuServeur et réagir correctement au RetourChargement
-
-        GLog.appel(EntrepotDeDonnees.class);
-
         return null;
     }
 }

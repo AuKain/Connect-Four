@@ -16,6 +16,7 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
 
     private D donnees;
     private P page;
+    private M modele;
 
     private P recupererPage() {
         GLog.appel(this);
@@ -26,29 +27,32 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     }
 
     private void creerAffichage() {
-        //TODO Appeler la page pour créer l'affichage
-    }
-
-    private void initialiserPage(D donnees) {
         GLog.appel(this);
 
-        page = recupererPage();
-        page.creerAffichage(donnees);
+        this.page.creerAffichage(this.donnees);
     }
 
     private void rafraichirAffichage() {
-        //TODO Appeler la page pour créer l'affichage
+        GLog.appel(this);
+
+        this.page.rafraichirAffichage(this.donnees);
     }
 
     private void initialiserPage() {
-        //TODO Créer affichage
-        // Rafraîchir affichage
+        GLog.appel(this);
+
+        creerAffichage();
+        rafraichirAffichage();
     }
 
     private void memoriserDonneesPuisInitialiserModelePage(D donneesObtenues) {
-        //TODO Stoquer les données dans l'attribut
-        // Initialiser la page
-        // Créer le modèle (et le stoquer)
+        GLog.appel(this);
+
+        this.donnees = donneesObtenues;
+
+        initialiserPage();
+
+        this.modele = creerModele(this.donnees, this.page);
     }
 
     private void obtenirDonneesPuisInitialiserModelePage() {
@@ -58,20 +62,24 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     @Override
     protected void onPause() {
         super.onPause();
-        //TODO Sauvegarder les données sur le serveur
+        GLog.appel(this);
+
+        EntrepotDeDonnees.sauvegarderDonneesSurServeur(this.donnees);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO Récupérer la page et mémoriser dans l'attribut page
-        // .
-        // obtenir données et initialiser
+        GLog.appel(this);
+
+        this.page = recupererPage();
+
+        obtenirDonneesPuisInitialiserModelePage();
     }
 
     protected abstract int getIdPage();
 
     protected abstract Class<D> getClassDonnees();
 
-    protected abstract void creerModele(D donnees, P page);
+    protected abstract M creerModele(D donnees, P page);
 }
