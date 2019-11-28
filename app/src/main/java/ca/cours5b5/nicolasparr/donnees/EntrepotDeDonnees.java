@@ -2,6 +2,12 @@ package ca.cours5b5.nicolasparr.donnees;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,6 +17,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import ca.cours5b5.nicolasparr.donnees.partie.RetourChargement;
+import ca.cours5b5.nicolasparr.donnees.partie.RetourDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,53 +27,7 @@ public class EntrepotDeDonnees {
 
     private static Gson gson = new GsonBuilder().create();
     private static final Map<Class<? extends Donnees>, Donnees> entrepot = new HashMap<>();
-
-    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees,
-                                                       Bundle etat,
-                                                       File repertoireDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        D donnees;
-
-        if(siDonneesSontDansEntrepot(classeDonnees)) {
-
-            donnees = donneesDansEntrepot(classeDonnees);
-
-        }else{
-
-            donnees = nouvellesDonnees(classeDonnees, etat, repertoireDonnees);
-            entreposerDonnees(donnees);
-
-        }
-
-        return donnees;
-    }
-
-    public static <D extends Donnees> D nouvellesDonnees(Class<D> classeDonnees,
-                                                       Bundle etat,
-                                                       File repertoireDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        D donnees;
-
-        if(siDonneesSontDansEtat(classeDonnees, etat)) {
-
-            donnees = donneesDansEtat(classeDonnees, etat);
-
-        }else if(siDonneesSontSurDisque(classeDonnees, repertoireDonnees)){
-
-            donnees = donneesSurDisque(classeDonnees, repertoireDonnees);
-
-        }else{
-
-            donnees = creerDonnees(classeDonnees);
-
-        }
-
-        return donnees;
-
-    }
-
+    private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     private static <D extends Donnees> D creerDonnees(Class<D> classeDonnees){
         GLog.appel(EntrepotDeDonnees.class);
@@ -86,167 +48,51 @@ public class EntrepotDeDonnees {
 
     }
 
-    private static boolean siDonneesSontSurDisque(Class<? extends Donnees> classeDonnees, File repertoireDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        File fichierDonnees = fichierDonnees(classeDonnees, repertoireDonnees);
-
-        return fichierDonnees.exists();
+    private static String nomCollection(Class<? extends Donnees> classeDonnees) {
+        //TODO Nom de la collection selon la classe de données
+        return null;
     }
 
-    private static File fichierDonnees(Class<? extends Donnees> classeDonnees, File repertoireDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        String nomFichier = nomFichierPourClasseDonnees(classeDonnees);
-
-        String cheminFichier = repertoireDonnees.getPath() + "/" + nomFichier;
-
-        File fichierDonnees = new File(cheminFichier);
-
-        return fichierDonnees;
-
+    private static String idDoccument() {
+        //TODO Nom du document (utiliser p.ex. l'id de l'usager courant)
+        return null;
     }
 
-    private static <D extends Donnees> D donneesSurDisque(Class<D> classeDonnees, File repertoireDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        File fichierDonnees = fichierDonnees(classeDonnees, repertoireDonnees);
-
-        FileReader readerDonnees;
-
-        try {
-
-            readerDonnees = new FileReader(fichierDonnees);
-
-        } catch (FileNotFoundException e) {
-
-            throw new RuntimeException("Erreur de lecture, fichier: " + fichierDonnees.getPath());
-
-        }
-
-        D donnees = gson.fromJson(readerDonnees, classeDonnees);
-
-        GLog.valeurs("Données lues du disque", gson.toJson(donnees));
-
-        return donnees;
-
+    private static DocumentReference referenceDocument (Class<? extends Donnees> classeDonnees) {
+        //TODO Une référence au document Firestore
+        return null;
     }
 
-
-    private static String nomFichierPourClasseDonnees(Class<? extends Donnees> classeDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        return classeDonnees.getSimpleName() + ".json";
-
+    private static <D extends Donnees> void sauvegarderDonneesSurServeur (D donnees) {
+        //TODO Sauvegarder sur Firestore
     }
 
-    private static boolean siDonneesSontDansEtat(Class<? extends Donnees> classeDonnees , Bundle etat){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        String cleDonnees = clePourClasseDonnees(classeDonnees);
-
-        return etat != null && etat.containsKey(cleDonnees);
-
+    private static <D extends Donnees> void reagirDonneesChargees (RetourChargement<D> retourChargement, @Nullable D donnees) {
+        //TODO Appeler le listener RetourChargement. ATTENTION: il faut vérifier si le documentSnapshot existe sur le serveur
     }
 
-    public static <D extends Donnees> D donneesDansEtat(Class<D> classeDonnees, Bundle etat){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        String cleDonnees = clePourClasseDonnees(classeDonnees);
-
-        String donneesJson = etat.getString(cleDonnees);
-
-        GLog.valeurs("Données chargées: ", classeDonnees, donneesJson);
-
-        return gson.fromJson(donneesJson, classeDonnees);
-
+    private static <D extends Donnees> void reagirDocumentCharge (Class<D> classeDonnees, RetourChargement<D> retourChargement, DocumentSnapshot documentSnapshot) {
+        //TODO Appeler le listener RetourChargement. ATTENTION: il faut véridifer si le documentSnapshot existe sur le serveur
     }
 
-    public static <D extends Donnees> void sauvegarderDansEtat(D donnees, Bundle outState) {
-        GLog.appel(EntrepotDeDonnees.class);
-
-        String cle = clePourClasseDonnees(donnees.getClass());
-        String donneesJson = gson.toJson(donnees);
-
-        GLog.valeurs("Données sauvegardées dans l'état", cle, donneesJson);
-
-        outState.putString(cle, gson.toJson(donnees));
+    private static <D extends Donnees> void installerCapteursServeur (final Class<D> classeDonees, final RetourChargement<D> retourChargement, Task<DocumentSnapshot> promessesServeur) {
+        //TODO Installer les listeners sur le serveur:
+        // - en cas de succès
+        // - en cas d'échec
     }
 
-    private static String clePourClasseDonnees(Class<? extends Donnees> classeDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        return classeDonnees.getSimpleName();
+    private static <D extends Donnees> void chargerDonneesDuServeur (final Class<D> classeDonnees, final RetourChargement<D> retourChargement) {
+        //TODO Obtenir une référence au document sur le serveur
+        // .
+        // Installer les listeners
     }
 
-    private static <D extends Donnees> D donneesDansEntrepot(Class<D> classeDonnees){
+    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, final RetourDonnees<D> retourDonnees){
+
+        //TODO Appeler chargerDonneesDuServeur et réagir correctement au RetourChargement
+
         GLog.appel(EntrepotDeDonnees.class);
 
-        return (D) entrepot.get(classeDonnees);
-    }
-
-    public static <D extends Donnees> void sauvegarderSurDisque(D donnees, File repertoireDonnees) {
-        GLog.appel(EntrepotDeDonnees.class);
-
-        File fichierDonnees = fichierDonnees(donnees.getClass(), repertoireDonnees);
-
-        FileWriter writerDonnees;
-
-        try {
-
-            writerDonnees = new FileWriter(fichierDonnees);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException("Impossible d'ouvrir le fichier: " + fichierDonnees.getPath());
-
-        }
-
-        String donneesJson = gson.toJson(donnees);
-
-        try {
-
-            writerDonnees.write(donneesJson);
-            writerDonnees.close();
-
-        } catch (IOException e) {
-
-            throw new RuntimeException("Impossible d'écrire, fichier: " + fichierDonnees.getPath());
-
-        }
-
-        GLog.valeurs("Données sauvegardées sur le disque", donneesJson);
-    }
-
-    private static boolean siDonneesSontDansEntrepot(Class<? extends Donnees> classeDonnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        return entrepot.containsKey(classeDonnees);
-    }
-
-    private static <D extends Donnees> void entreposerDonnees(D donnees){
-        GLog.appel(EntrepotDeDonnees.class);
-
-        entrepot.put(donnees.getClass(), donnees);
-    }
-
-    public static void effacerDonnees(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
-        GLog.appel(EntrepotDeDonnees.class);
-
-        effacerDansEntrepot(classeDonnees);
-        effacerSurDisque(classeDonnees, repertoireDonnees);
-    }
-
-    private static Donnees effacerDansEntrepot(Class<? extends Donnees> classeDonnees) {
-        GLog.appel(EntrepotDeDonnees.class);
-
-        return entrepot.remove(classeDonnees);
-    }
-
-    private static <D extends Donnees> void effacerSurDisque(Class<? extends Donnees> classeDonnees, File repertoireDonnees) {
-        GLog.appel(EntrepotDeDonnees.class);
-
-        File fichierDonnees = fichierDonnees(classeDonnees, repertoireDonnees);
-        fichierDonnees.delete();
+        return null;
     }
 }

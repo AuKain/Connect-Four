@@ -17,32 +17,16 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     private D donnees;
     private P page;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private P recupererPage() {
         GLog.appel(this);
 
-        super.onCreate(savedInstanceState);
+        int idPage = getIdPage();
 
-        initialiserDonneesPageModele(savedInstanceState);
-
+        return findViewById(idPage);
     }
 
-    private void initialiserDonneesPageModele(Bundle etat){
-        GLog.appel(this);
-
-        donnees = recupererDonnees(etat);
-
-        initialiserPageModele(donnees);
-
-    }
-
-    private void initialiserPageModele(D donnees){
-        GLog.appel(this);
-
-        initialiserPage(donnees);
-
-        initialiserModele(donnees, page);
-
+    private void creerAffichage() {
+        //TODO Appeler la page pour créer l'affichage
     }
 
     private void initialiserPage(D donnees) {
@@ -52,62 +36,37 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
         page.creerAffichage(donnees);
     }
 
-    private void initialiserModele(D donnees, P page){
-        GLog.appel(this);
-
-        creerModele(donnees, page);
+    private void rafraichirAffichage() {
+        //TODO Appeler la page pour créer l'affichage
     }
 
-
-
-    private P recupererPage() {
-        GLog.appel(this);
-
-        int idPage = getIdPage();
-
-        return findViewById(idPage);
+    private void initialiserPage() {
+        //TODO Créer affichage
+        // Rafraîchir affichage
     }
 
-    protected D recupererDonnees(Bundle etat) {
-        GLog.appel(this);
-
-        Class<D> classeDonnees = getClassDonnees();
-
-        File repertoireDonnees = repertoireDonnees();
-
-        return EntrepotDeDonnees.obtenirDonnees(classeDonnees, etat, repertoireDonnees);
-
+    private void memoriserDonneesPuisInitialiserModelePage(D donneesObtenues) {
+        //TODO Stoquer les données dans l'attribut
+        // Initialiser la page
+        // Créer le modèle (et le stoquer)
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        GLog.appel(this);
-
-        super.onSaveInstanceState(outState);
-
-        EntrepotDeDonnees.sauvegarderDansEtat(donnees, outState);
-
+    private void obtenirDonneesPuisInitialiserModelePage() {
+        //TODO Obtenir les données, puis initialiser
     }
 
     @Override
     protected void onPause() {
-        GLog.appel(this);
         super.onPause();
-
-        File repertoireDonnees = repertoireDonnees();
-
-        EntrepotDeDonnees.sauvegarderSurDisque(donnees, repertoireDonnees);
-
+        //TODO Sauvegarder les données sur le serveur
     }
 
-
-    protected void onResume() {
-        GLog.appel(this);
-
-        super.onResume();
-
-        page.rafraichirAffichage(donnees);
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //TODO Récupérer la page et mémoriser dans l'attribut page
+        // .
+        // obtenir données et initialiser
     }
 
     protected abstract int getIdPage();

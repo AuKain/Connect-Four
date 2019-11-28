@@ -37,6 +37,10 @@ dependencies {
 
     // Atelier09
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Atelier12
+    implementation 'com.firebaseui:firebase-ui-firestore:5.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

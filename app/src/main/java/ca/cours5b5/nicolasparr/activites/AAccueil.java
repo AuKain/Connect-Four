@@ -180,7 +180,7 @@ public class AAccueil extends ActiviteAvecControles {
 
     }
 
-    private void ouvrirPagePartieLocale(){
+    private void ouvrirPagePartieLocale() {
         GLog.appel(this);
 
         Intent intentionPartieLocale = new Intent(this, APartieLocale.class);
@@ -197,7 +197,7 @@ public class AAccueil extends ActiviteAvecControles {
 
     }
 
-    private void ouvrirPageParametres(){
+    private void ouvrirPageParametres() {
         GLog.appel(this);
 
         Intent intentionParametres = new Intent(this, AParametres.class);
