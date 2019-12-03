@@ -32,9 +32,9 @@ public class APartieLocale extends APartie<DPartieLocale, MPartieLocale, PPartie
     }
 
     @Override
-    protected void creerModele(DPartieLocale donnees, PPartieLocale page) {
+    protected MPartieLocale creerModele(DPartieLocale donnees, PPartieLocale page) {
         GLog.appel(this);
 
-        new MPartieLocale(donnees, page);
+        return new MPartieLocale(donnees, page);
     }
 }

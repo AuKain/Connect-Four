@@ -48,7 +48,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
         rafraichirTailleGrille(donnees.getTailleGrille());
 
-        rafraichirContinuer(donnees.siContinuerPartiePrecedente());
+        rafraichirContinuer(donnees.getContinuerPartiePrecedente());
 
 
     }

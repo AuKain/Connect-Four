@@ -1,7 +1,5 @@
 package ca.cours5b5.nicolasparr.donnees;
 
-import javax.microedition.khronos.opengles.GL;
-
 import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -25,7 +23,7 @@ public class DParametres extends Donnees {
         this.tailleGrille = tailleGrille;
     }
 
-    public boolean siContinuerPartiePrecedente() {
+    public boolean getContinuerPartiePrecedente() {
         GLog.appel(this);
 
         return siContinuerPartiePrecedente;
@@ -35,7 +33,5 @@ public class DParametres extends Donnees {
         GLog.appel(this);
         this.siContinuerPartiePrecedente = siContinuerPartiePrecedente;
     }
-
-
 
 }

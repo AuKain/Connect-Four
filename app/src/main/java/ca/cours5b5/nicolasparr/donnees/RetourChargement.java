@@ -1,6 +1,4 @@
-package ca.cours5b5.nicolasparr.donnees.partie;
-
-import ca.cours5b5.nicolasparr.donnees.Donnees;
+package ca.cours5b5.nicolasparr.donnees;
 
 public interface RetourChargement<D extends Donnees> {
 

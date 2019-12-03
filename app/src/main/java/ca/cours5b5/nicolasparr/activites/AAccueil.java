@@ -17,6 +17,7 @@ import java.util.List;
 import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
+import ca.cours5b5.nicolasparr.donnees.RetourDonnees;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartieLocale;
 import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -135,7 +136,8 @@ public class AAccueil extends ActiviteAvecControles {
             public void onClick(View v) {
                 GLog.appel(this);
 
-                effacerPartieCouranteSiNecessairePuisOuvrirPagePartieLocale();
+                ouvrirPagePartieLocale();
+                //effacerPartieCouranteSiNecessairePuisOuvrirPagePartieLocale();
 
             }
         });
@@ -162,23 +164,22 @@ public class AAccueil extends ActiviteAvecControles {
         });
     }
 
-    private void effacerPartieCouranteSiNecessairePuisOuvrirPagePartieLocale() {
-        GLog.appel(this);
-
-        DParametres dParametres = EntrepotDeDonnees.obtenirDonnees(DParametres.class, null, repertoireDonnees());
-
-        if (!dParametres.siContinuerPartiePrecedente()) {
-
-            effacerPartieCourante();
-
-            DPartieLocale dPartieLocale = EntrepotDeDonnees.obtenirDonnees(DPartieLocale.class, null, repertoireDonnees());
-            dPartieLocale.setTailleGrille(dParametres.getTailleGrille());
-
-        }
-
-        ouvrirPagePartieLocale();
-
-    }
+//    private void effacerPartieCouranteSiNecessairePuisOuvrirPagePartieLocale() {
+//        GLog.appel(this);
+//
+//        DParametres dParametres = EntrepotDeDonnees.obtenirDonnees(DParametres.class, null);
+//
+//        if (!dParametres.getContinuerPartiePrecedente()) {
+//
+//            effacerPartieCourante();
+//
+//            DPartieLocale dPartieLocale = EntrepotDeDonnees.obtenirDonnees(DParametres.class, null, repertoireDonnees());
+//            dPartieLocale.setTailleGrille(dParametres.getTailleGrille());
+//
+//        }
+//
+//        ouvrirPagePartieLocale();
+//    }
 
     private void ouvrirPagePartieLocale() {
         GLog.appel(this);
@@ -188,14 +189,23 @@ public class AAccueil extends ActiviteAvecControles {
 
     }
 
-    private void effacerPartieCourante() {
-        GLog.appel(this);
+//    private void effacerPartieCourante() {
+//        GLog.appel(this);
+//
+//        File repertoireDonnees = repertoireDonnees();
+//
+//        EntrepotDeDonnees.effacerDonnees(DPartieLocale.class, repertoireDonnees);
+//
+//    }
 
-        File repertoireDonnees = repertoireDonnees();
-
-        EntrepotDeDonnees.effacerDonnees(DPartieLocale.class, repertoireDonnees);
-
-    }
+//    private void effacerPartieCourante() {
+//        GLog.appel(this);
+//
+//        File repertoireDonnees = repertoireDonnees();
+//
+//        EntrepotDeDonnees.effacerDonnees(DPartieLocale.class, repertoireDonnees);
+//
+//    }
 
     private void ouvrirPageParametres() {
         GLog.appel(this);

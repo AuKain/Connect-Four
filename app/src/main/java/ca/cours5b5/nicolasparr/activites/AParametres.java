@@ -32,10 +32,10 @@ public class AParametres extends ActiviteAvecModeles<DParametres, MParametres, P
     }
 
     @Override
-    protected void creerModele(DParametres donnees, PParametres page) {
+    protected MParametres creerModele(DParametres donnees, PParametres page) {
         GLog.appel(this);
 
-        new MParametres(donnees, page);
+        return new MParametres(donnees, page);
     }
 
 }

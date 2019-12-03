@@ -6,6 +6,7 @@ import java.io.File;
 
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
+import ca.cours5b5.nicolasparr.donnees.RetourDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.Modele;
 import ca.cours5b5.nicolasparr.vues.pages.PageAvecModeles;
@@ -56,7 +57,13 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     }
 
     private void obtenirDonneesPuisInitialiserModelePage() {
-        //TODO Obtenir les données, puis initialiser
+        EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), new RetourDonnees<D>() {
+            @Override
+            public void recevoirDonnees(D donnees) {
+                memoriserDonneesPuisInitialiserModelePage(donnees);
+            }
+        });
+
     }
 
     @Override

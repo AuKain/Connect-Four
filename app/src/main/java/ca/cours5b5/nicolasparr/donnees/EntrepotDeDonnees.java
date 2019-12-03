@@ -1,27 +1,17 @@
 package ca.cours5b5.nicolasparr.donnees;
 
-import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import ca.cours5b5.nicolasparr.donnees.partie.RetourChargement;
-import ca.cours5b5.nicolasparr.donnees.partie.RetourDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
-import java.util.HashMap;
-import java.util.Map;
+import ca.cours5b5.nicolasparr.global.GUsagerCourant;
 
 public class EntrepotDeDonnees {
 
@@ -39,7 +29,6 @@ public class EntrepotDeDonnees {
         } catch (IllegalAccessException | InstantiationException e) {
 
             throw new RuntimeException("Erreur d'instantiation pour " + classeDonnees.getSimpleName());
-
         }
 
         return donnees;
@@ -47,46 +36,75 @@ public class EntrepotDeDonnees {
     }
 
     private static String nomCollection(Class<? extends Donnees> classeDonnees) {
-        //TODO Nom de la collection selon la classe de données
-        return null;
+        return classeDonnees.getSimpleName();
     }
 
     private static String idDoccument() {
-        //TODO Nom du document (utiliser p.ex. l'id de l'usager courant)
-        return null;
+        return GUsagerCourant.getId();
     }
 
-    private static DocumentReference referenceDocument (Class<? extends Donnees> classeDonnees) {
-        //TODO Une référence au document Firestore
-        return null;
+    private static DocumentReference referenceDocument(Class<? extends Donnees> classeDonnees) {
+        return firestore.collection(nomCollection(classeDonnees)).document(idDoccument());
     }
 
     public static <D extends Donnees> void sauvegarderDonneesSurServeur (D donnees) {
-        //TODO Sauvegarder sur Firestore
+        referenceDocument(donnees.getClass()).set(donnees);
     }
 
-    private static <D extends Donnees> void reagirDonneesChargees (RetourChargement<D> retourChargement, @Nullable D donnees) {
+    private static <D extends Donnees> void reagirDonneesChargees(RetourChargement<D> retourChargement, @Nullable D donnees) {
         //TODO Appeler le listener RetourChargement. ATTENTION: il faut vérifier si le documentSnapshot existe sur le serveur
+
+        if (donnees != null) {
+            retourChargement.chargementReussi(donnees);
+        } else {
+            retourChargement.chargementEchoue();
+        }
     }
 
-    private static <D extends Donnees> void reagirDocumentCharge (Class<D> classeDonnees, RetourChargement<D> retourChargement, DocumentSnapshot documentSnapshot) {
-        //TODO Appeler le listener RetourChargement. ATTENTION: il faut véridifer si le documentSnapshot existe sur le serveur
+    private static <D extends Donnees> void reagirDocumentCharge(Class<D> classeDonnees, RetourChargement<D> retourChargement, DocumentSnapshot documentSnapshot) {
+        //TODO Appeler le listener RetourChargement. ATTENTION: il faut vérifer si le documentSnapshot existe sur le serveur
+
+        if (documentSnapshot.exists()) {
+            reagirDonneesChargees(retourChargement, documentSnapshot.toObject(classeDonnees));
+        } else {
+            retourChargement.chargementEchoue();
+        }
     }
 
-    private static <D extends Donnees> void installerCapteursServeur (final Class<D> classeDonees, final RetourChargement<D> retourChargement, Task<DocumentSnapshot> promessesServeur) {
-        //TODO Installer les listeners sur le serveur:
-        // - en cas de succès
-        // - en cas d'échec
+    private static <D extends Donnees> void installerCapteursServeur(final Class<D> classeDonees, final RetourChargement<D> retourChargement, Task<DocumentSnapshot> promessesServeur) {
+
+        promessesServeur.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                reagirDocumentCharge(classeDonees, retourChargement, documentSnapshot);
+            }
+        });
+
+        promessesServeur.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //TODO ?
+            }
+        });
     }
 
-    private static <D extends Donnees> void chargerDonneesDuServeur (final Class<D> classeDonnees, final RetourChargement<D> retourChargement) {
-        //TODO Obtenir une référence au document sur le serveur
-        // .
-        // Installer les listeners
+    private static <D extends Donnees> void chargerDonneesDuServeur(final Class<D> classeDonnees, final RetourChargement<D> retourChargement) {
+        installerCapteursServeur(classeDonnees, retourChargement, referenceDocument(classeDonnees).get());
     }
 
-    public static <D extends Donnees> D obtenirDonnees(Class<D> classeDonnees, final RetourDonnees<D> retourDonnees){
-        //TODO Appeler chargerDonneesDuServeur et réagir correctement au RetourChargement
-        return null;
+    public static <D extends Donnees> void obtenirDonnees(final Class<D> classeDonnees, final RetourDonnees<D> retourDonnees){
+
+        chargerDonneesDuServeur(classeDonnees, new RetourChargement<D>() {
+            @Override
+            public void chargementReussi(D donnees) {
+                retourDonnees.recevoirDonnees(donnees);
+            }
+
+            @Override
+            public void chargementEchoue() {
+                retourDonnees.recevoirDonnees(creerDonnees(classeDonnees));
+            }
+        });
     }
 }
