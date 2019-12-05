@@ -139,6 +139,8 @@ public class VColonne extends LinearLayout {
     }
 
     public void rafraichirCommande(CCoupIci coupIci) {
+        GLog.appel(this);
+
         entete.setEnabled(coupIci.siExecutable());
     }
 }

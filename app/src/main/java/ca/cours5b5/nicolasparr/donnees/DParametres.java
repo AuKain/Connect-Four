@@ -29,7 +29,7 @@ public class DParametres extends Donnees {
         return siContinuerPartiePrecedente;
     }
 
-    public void setSiContinuerPartiePrecedente(boolean siContinuerPartiePrecedente) {
+    public void setContinuerPartiePrecedente(boolean siContinuerPartiePrecedente) {
         GLog.appel(this);
         this.siContinuerPartiePrecedente = siContinuerPartiePrecedente;
     }

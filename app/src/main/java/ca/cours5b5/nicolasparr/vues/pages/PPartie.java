@@ -66,12 +66,8 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void creerCommandes() {
-        /*
-         * TODO Créer les commandes (J'ai aucune idée de ce que j'ai fait...)
-         *
-         * NOTE: il est préférable d'appeler la grille pour déléguer
-         *
-         */
+        GLog.appel(this);
+
         coupIcis = new CCoupIci[grille.getColonnes().length];
 
         for (int i = 0; i < grille.getColonnes().length; i++) {
@@ -81,19 +77,14 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void installerCapteurs() {
+        GLog.appel(this);
 
         grille.installerCapteurs(coupIcis);
     }
 
     @Override
     public void rafraichirCommandes() {
-        /*
-         * TODO Rafraîchir les commandes, c-a-d
-         *  activer/désactiver les contrôles
-         *  si la commande est exécutabe/non-exécutable
-         *
-         * NOTE: il est préférable d'appeler la grille
-         */
+        GLog.appel(this);
 
         grille.rafraichirCommandes(coupIcis);
     }

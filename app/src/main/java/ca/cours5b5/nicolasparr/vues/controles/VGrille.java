@@ -74,6 +74,8 @@ public class VGrille extends LinearLayout {
     }
 
     public void rafraichirCommandes(CCoupIci[] coupIcis) {
+        GLog.appel(this);
+
         for (int i = 0; i < colonnes.length; i++) {
             colonnes[i].rafraichirCommande(coupIcis[i]);
         }
@@ -103,6 +105,8 @@ public class VGrille extends LinearLayout {
     }
 
     public VColonne[] getColonnes() {
+        GLog.appel(this);
+
         return this.colonnes;
     }
 }

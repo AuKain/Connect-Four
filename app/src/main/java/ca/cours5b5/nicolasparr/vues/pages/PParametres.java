@@ -63,6 +63,8 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
     @Override
     public void creerCommandes() {
+        GLog.appel(this);
+
         cContinuerPartie = new CContinuerPartie(switchContinuerPartie.isChecked());
 
         cTaillePetite = new CTailleGrille(PETITE);
@@ -72,6 +74,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
     @Override
     public void rafraichirCommandes() {
+        GLog.appel(this);
 
         checkPetite.setClickable(cTaillePetite.siExecutable());
         checkMoyenne.setClickable(cTailleMoyenne.siExecutable());

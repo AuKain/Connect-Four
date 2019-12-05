@@ -26,7 +26,7 @@ public class MParametres extends Modele<DParametres, PParametres> {
     public void choisirSiContinuerPartie(boolean siContinuerPartie) {
         GLog.appel(this);
 
-        this.donnees.setSiContinuerPartiePrecedente(siContinuerPartie);
+        this.donnees.setContinuerPartiePrecedente(siContinuerPartie);
 
         this.page.rafraichirAffichage(this.donnees);
     }
@@ -40,6 +40,8 @@ public class MParametres extends Modele<DParametres, PParametres> {
     }
 
     public ETailleGrille getTailleGrille() {
+        GLog.appel(this);
+
         return this.donnees.getTailleGrille();
     }
 }
