@@ -30,6 +30,8 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     private void creerAffichage() {
         GLog.appel(this);
 
+        this.page.creerCommandes();
+
         this.page.creerAffichage(this.donnees);
     }
 
@@ -37,6 +39,7 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
         GLog.appel(this);
 
         this.page.rafraichirAffichage(this.donnees);
+        this.page.rafraichirCommandes();
     }
 
     private void initialiserPage() {

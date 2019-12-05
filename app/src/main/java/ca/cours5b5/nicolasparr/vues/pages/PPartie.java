@@ -42,7 +42,7 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
     }
 
     @Override
-    public void installerCapteurs(MPartie modele) {
+    public void installerCapteurs(MPartie modele) { //FIXME delete pour l'autre méthode
         GLog.appel(this);
 
         grille.installerCapteurs(modele);
@@ -65,6 +65,36 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
         grille.afficher(donnees.getGrille());
 
+        rafraichirCommandes();
+    }
+
+    @Override
+    public void creerCommandes() {
+        /*
+         * TODO Créer les commandes
+         *
+         * NOTE: il est préférable d'appeler la grille pour déléguer
+         */
+    }
+
+    @Override
+    public void installerCapteurs() {
+        /*
+         * TODO Modifier pour exécuter la commande
+         *  plutôt qu'appeler le modèle
+         *
+         */
+    }
+
+    @Override
+    public void rafraichirCommandes() {
+        /*
+         * TODO Rafraîchir les commandes, c-a-d
+         *  activer/désactiver les contrôles
+         *  si la commande est exécutabe/non-exécutable
+         *
+         * NOTE: il est préférable d'appeler la grille
+         */
     }
 
 

@@ -1,6 +1,7 @@
 package ca.cours5b5.nicolasparr.modeles;
 
 
+import ca.cours5b5.nicolasparr.commandes.CCoupIci;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
 import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -29,7 +30,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         prochainJoueur();
     }
 
-
     protected void ajouterJeton(int indiceColonne){
         GLog.appel(this);
 
@@ -39,7 +39,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         }
 
     }
-
 
     protected void prochainJoueur(){
         GLog.appel(this);
@@ -62,5 +61,12 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         }else{
             donnees.setProchaineCouleur(ECouleur.ROUGE);
         }
+    }
+
+    @Override
+    protected void initialiserCommandes() {
+        GLog.appel(this);
+
+        new CCoupIci(); //TODO à changer après modifier CCoupIci!
     }
 }

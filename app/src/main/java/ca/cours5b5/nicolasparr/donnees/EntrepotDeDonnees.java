@@ -52,7 +52,6 @@ public class EntrepotDeDonnees {
     }
 
     private static <D extends Donnees> void reagirDonneesChargees(RetourChargement<D> retourChargement, @Nullable D donnees) {
-        //TODO Appeler le listener RetourChargement. ATTENTION: il faut vérifier si le documentSnapshot existe sur le serveur
 
         if (donnees != null) {
             retourChargement.chargementReussi(donnees);
@@ -62,7 +61,6 @@ public class EntrepotDeDonnees {
     }
 
     private static <D extends Donnees> void reagirDocumentCharge(Class<D> classeDonnees, RetourChargement<D> retourChargement, DocumentSnapshot documentSnapshot) {
-        //TODO Appeler le listener RetourChargement. ATTENTION: il faut vérifer si le documentSnapshot existe sur le serveur
 
         if (documentSnapshot.exists()) {
             reagirDonneesChargees(retourChargement, documentSnapshot.toObject(classeDonnees));
@@ -84,7 +82,7 @@ public class EntrepotDeDonnees {
         promessesServeur.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //TODO ?
+                //FIXME
             }
         });
     }

@@ -1,5 +1,9 @@
 package ca.cours5b5.nicolasparr.modeles;
 
+import androidx.lifecycle.GenericLifecycleObserver;
+
+import ca.cours5b5.nicolasparr.commandes.CContinuerPartie;
+import ca.cours5b5.nicolasparr.commandes.CTailleGrille;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -29,5 +33,13 @@ public class MParametres extends Modele<DParametres, PParametres> {
 
         this.page.rafraichirAffichage(this.donnees);
 
+    }
+
+    @Override
+    protected void initialiserCommandes() {
+        GLog.appel(this);
+
+        new CContinuerPartie(donnees.getContinuerPartiePrecedente());
+        new CTailleGrille(donnees.getTailleGrille());
     }
 }

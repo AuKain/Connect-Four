@@ -24,6 +24,9 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
     private CheckBox checkMoyenne;
     private CheckBox checkGrande;
 
+    /*
+     * TODO Attributs privés pour stoquer les commande
+     */
 
     public PParametres(Context context) {
         super(context);
@@ -50,11 +53,38 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
         rafraichirContinuer(donnees.getContinuerPartiePrecedente());
 
-
+        rafraichirCommandes();
     }
 
     @Override
-    public void installerCapteurs(final MParametres modele) {
+    public void creerCommandes() {
+        /*
+         * TODO Créer les commandes
+         *
+         */
+    }
+
+    @Override
+    public void installerCapteurs() {
+        /*
+         * TODO Modifier pour exécuter la commande
+         *  plutôt qu'appeler le modèle
+         *
+         */
+    }
+
+    @Override
+    public void rafraichirCommandes() {
+        /*
+         * TODO Rafraîchir les commandes, c-a-d
+         *  activer/désactiver les contrôles
+         *  si la commande est exécutabe/non-exécutable
+         *
+         */
+    }
+
+    @Override
+    public void installerCapteurs(final MParametres modele) { //FIXME Delete pour l'autre?
         GLog.appel(this);
 
         checkPetite.setOnClickListener(new OnClickListener() {
@@ -93,7 +123,6 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
             }
         });
 
-
     }
 
     private void rafraichirTailleGrille(ETailleGrille tailleGrille) {
@@ -129,7 +158,6 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
         switchContinuerPartie.setChecked(siContinuerPartiePrecedente);
 
     }
-
 
     @Override
     protected void recupererControles() {
