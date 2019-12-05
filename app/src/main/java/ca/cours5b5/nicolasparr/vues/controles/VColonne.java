@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.commandes.CCoupIci;
 import ca.cours5b5.nicolasparr.donnees.partie.DCase;
 import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -48,6 +49,9 @@ public class VColonne extends LinearLayout {
         creerColonne(hauteur, indiceColonne);
     }
 
+    public VEntete getEntete() {
+        return entete;
+    }
 
     private void creerColonne(int hauteur, int indiceColonne){
         GLog.appel(this);
@@ -114,10 +118,10 @@ public class VColonne extends LinearLayout {
     }
 
 
-    public void installerCapteur(MPartie modele) {
+    public void installerCapteur(CCoupIci coupIci) {
         GLog.appel(this);
 
-        entete.installerCapteur(modele);
+        entete.installerCapteur(coupIci);
 
     }
 
@@ -134,5 +138,7 @@ public class VColonne extends LinearLayout {
         }
     }
 
-
+    public void rafraichirCommande(CCoupIci coupIci) {
+        entete.setEnabled(coupIci.siExecutable());
+    }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.commandes.CCoupIci;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
 import ca.cours5b5.nicolasparr.global.GLog;
 
@@ -40,7 +41,7 @@ public class VEntete extends AppCompatButton {
 
     }
 
-    public void installerCapteur(final MPartie modele) {
+    public void installerCapteur(final CCoupIci coupIci) {
         GLog.appel(this);
 
         this.setOnClickListener(new OnClickListener() {
@@ -48,7 +49,9 @@ public class VEntete extends AppCompatButton {
             public void onClick(View v) {
                 GLog.appel(this);
 
-                modele.jouerCoupIci(idColonne);
+                coupIci.executer();
+
+
             }
         });
 

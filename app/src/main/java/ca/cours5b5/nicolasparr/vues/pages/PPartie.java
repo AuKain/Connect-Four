@@ -7,11 +7,13 @@ import android.widget.TextView;
 import java.util.Random;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.commandes.CCoupIci;
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MPartie;
 import ca.cours5b5.nicolasparr.modeles.Modele;
+import ca.cours5b5.nicolasparr.vues.controles.VColonne;
 import ca.cours5b5.nicolasparr.vues.controles.VGrille;
 
 public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
@@ -20,6 +22,8 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
     TextView texteNomJoeuur02;
 
     VGrille grille;
+
+    CCoupIci[] coupIcis;
 
     public PPartie(Context context) {
         super(context);
@@ -40,14 +44,6 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
         super.onFinishInflate();
         adapterAffichageSiPaysage();
     }
-
-//    @Override
-//    public void installerCapteurs(MPartie modele) { //FIXME delete pour l'autre méthode
-//        GLog.appel(this);
-//
-//        grille.installerCapteurs(modele);
-//
-//    }
 
     public void creerAffichage(DPartie donnees){
         GLog.appel(this);
@@ -71,19 +67,22 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
     @Override
     public void creerCommandes() {
         /*
-         * TODO Créer les commandes
+         * TODO Créer les commandes (J'ai aucune idée de ce que j'ai fait...)
          *
          * NOTE: il est préférable d'appeler la grille pour déléguer
+         *
          */
+        coupIcis = new CCoupIci[grille.getColonnes().length];
+
+        for (int i = 0; i < grille.getColonnes().length; i++) {
+            coupIcis[i] = new CCoupIci(i);
+        }
     }
 
     @Override
     public void installerCapteurs() {
-        /*
-         * TODO Modifier pour exécuter la commande
-         *  plutôt qu'appeler le modèle
-         *
-         */
+
+        grille.installerCapteurs(coupIcis);
     }
 
     @Override
@@ -95,6 +94,8 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
          *
          * NOTE: il est préférable d'appeler la grille
          */
+
+        grille.rafraichirCommandes(coupIcis);
     }
 
 

@@ -82,7 +82,7 @@ public class EntrepotDeDonnees {
         promessesServeur.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //FIXME
+                //Rien on failure pour l'instant
             }
         });
     }

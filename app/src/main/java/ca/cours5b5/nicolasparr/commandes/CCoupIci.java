@@ -1,37 +1,30 @@
 package ca.cours5b5.nicolasparr.commandes;
 
+import ca.cours5b5.nicolasparr.modeles.MPartie;
+
 public class CCoupIci extends Commande {
 
-    /*
-     * TODO Attribut statique et privé pour stoquer
-     *  le bon type de modèle
-     */
+    private static MPartie modele;
 
-    public static void initiaiser(/* le modèle */) {
-        /*
-         * TODO Stoquer le modèle
-         */
+    private int noColonne;
+
+    public static void initialiser(MPartie modele) {
+
+        CCoupIci.modele = modele;
     }
 
-    public CCoupIci(/* la valeur */) {
-        /*
-         * TODO Stoquer la valeur
-         */
+    public CCoupIci(int noColonne) {
+        this.noColonne = noColonne;
     }
 
     @Override
     public void executer() {
-        /*
-         * TODO Appeler le modèle
-         */
+        modele.jouerCoupIci(noColonne);
     }
 
     @Override
     public boolean siExecutable() {
-        /*
-         * TODO Appeler le modèle
-         */
 
-        return false;
+        return modele.siPossibleJouerCoup(noColonne);
     }
 }

@@ -23,6 +23,10 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         this.page.rafraichirAffichage(this.donnees);
     }
 
+    public boolean siPossibleJouerCoup(int indiceColonne) {
+        return !siColonnePleine(indiceColonne);
+    }
+
     protected void effectuerCoup(int indiceColonne){
         GLog.appel(this);
 
@@ -50,7 +54,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         GLog.appel(this);
 
         return donnees.siColonnePleine(indiceColonne);
-
     }
 
     private void prochaineCouleur() {
@@ -67,6 +70,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
     protected void initialiserCommandes() {
         GLog.appel(this);
 
-        CCoupIci.initiaiser(); //TODO à changer après modifier CCoupIci!
+        CCoupIci.initialiser(this);
     }
 }

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.util.Random;
 
+import ca.cours5b5.nicolasparr.commandes.CCoupIci;
 import ca.cours5b5.nicolasparr.donnees.partie.DColonne;
 import ca.cours5b5.nicolasparr.donnees.partie.DGrille;
 import ca.cours5b5.nicolasparr.global.GLog;
@@ -72,11 +73,17 @@ public class VGrille extends LinearLayout {
 
     }
 
-    public void installerCapteurs(MPartie modele){
+    public void rafraichirCommandes(CCoupIci[] coupIcis) {
+        for (int i = 0; i < colonnes.length; i++) {
+            colonnes[i].rafraichirCommande(coupIcis[i]);
+        }
+    }
+
+    public void installerCapteurs(CCoupIci[] coups){
         GLog.appel(this);
 
         for(int i = 0; i < colonnes.length; i++){
-            colonnes[i].installerCapteur(modele);
+            colonnes[i].installerCapteur(coups[i]);
         }
 
     }
@@ -93,6 +100,10 @@ public class VGrille extends LinearLayout {
             colonnes[i].afficher(dColonne);
 
         }
+    }
+
+    public VColonne[] getColonnes() {
+        return this.colonnes;
     }
 }
 
