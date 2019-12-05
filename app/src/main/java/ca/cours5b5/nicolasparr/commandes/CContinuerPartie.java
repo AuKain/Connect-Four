@@ -5,6 +5,7 @@ import ca.cours5b5.nicolasparr.modeles.MParametres;
 public class CContinuerPartie extends Commande {
 
     private static MParametres modele;
+
     private boolean continuerPartie;
 
     public static void initialiser(MParametres modele) {
@@ -18,8 +19,7 @@ public class CContinuerPartie extends Commande {
 
     @Override
     public void executer() {
-        /*
-         * TODO Appeler le modèle
-         */
+
+        modele.choisirSiContinuerPartie(!continuerPartie);
     }
 }

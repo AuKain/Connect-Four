@@ -30,9 +30,11 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     private void creerAffichage() {
         GLog.appel(this);
 
+        this.page.creerAffichage(this.donnees);
+
         this.page.creerCommandes();
 
-        this.page.creerAffichage(this.donnees);
+        this.page.installerCapteurs();
     }
 
     private void rafraichirAffichage() {
@@ -54,9 +56,9 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
 
         this.donnees = donneesObtenues;
 
-        initialiserPage();
-
         this.modele = creerModele(this.donnees, this.page);
+
+        initialiserPage();
     }
 
     private void obtenirDonneesPuisInitialiserModelePage() {

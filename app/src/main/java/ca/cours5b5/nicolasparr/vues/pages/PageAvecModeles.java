@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import ca.cours5b5.nicolasparr.donnees.Donnees;
-import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.Modele;
 
 public abstract class PageAvecModeles<D extends Donnees, M extends Modele> extends Page {
@@ -22,8 +21,6 @@ public abstract class PageAvecModeles<D extends Donnees, M extends Modele> exten
     }
 
     public abstract void creerAffichage(D donnees);
-
-    public abstract void installerCapteurs(M modele);
 
     public abstract void rafraichirAffichage(D donnees);
 

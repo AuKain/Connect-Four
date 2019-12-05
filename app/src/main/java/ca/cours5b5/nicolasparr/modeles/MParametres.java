@@ -1,7 +1,5 @@
 package ca.cours5b5.nicolasparr.modeles;
 
-import androidx.lifecycle.GenericLifecycleObserver;
-
 import ca.cours5b5.nicolasparr.commandes.CContinuerPartie;
 import ca.cours5b5.nicolasparr.commandes.CTailleGrille;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
@@ -23,7 +21,6 @@ public class MParametres extends Modele<DParametres, PParametres> {
         this.donnees.setTailleGrille(tailleGrille);
 
         this.page.rafraichirAffichage(this.donnees);
-
     }
 
     public void choisirSiContinuerPartie(boolean siContinuerPartie) {
@@ -32,14 +29,17 @@ public class MParametres extends Modele<DParametres, PParametres> {
         this.donnees.setSiContinuerPartiePrecedente(siContinuerPartie);
 
         this.page.rafraichirAffichage(this.donnees);
-
     }
 
     @Override
     protected void initialiserCommandes() {
         GLog.appel(this);
 
-        new CContinuerPartie(donnees.getContinuerPartiePrecedente());
-        new CTailleGrille(donnees.getTailleGrille());
+        CContinuerPartie.initialiser(this);
+        CTailleGrille.initialiser(this);
+    }
+
+    public ETailleGrille getTailleGrille() {
+        return this.donnees.getTailleGrille();
     }
 }

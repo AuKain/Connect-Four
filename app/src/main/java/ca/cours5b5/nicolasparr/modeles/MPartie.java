@@ -67,6 +67,6 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
     protected void initialiserCommandes() {
         GLog.appel(this);
 
-        new CCoupIci(); //TODO à changer après modifier CCoupIci!
+        CCoupIci.initiaiser(); //TODO à changer après modifier CCoupIci!
     }
 }

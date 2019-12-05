@@ -1,5 +1,5 @@
 <resources>
-    <string translatable="false" name="app_name">NicolasParr</string>
+    <string translatable="false" name="app_name">Connect Four!</string>
     <string name="bonjour">Bonjour!</string>
 
     <string name="parametres">Paramètres</string>

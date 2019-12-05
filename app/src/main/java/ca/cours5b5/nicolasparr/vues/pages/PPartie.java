@@ -41,13 +41,13 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
         adapterAffichageSiPaysage();
     }
 
-    @Override
-    public void installerCapteurs(MPartie modele) { //FIXME delete pour l'autre méthode
-        GLog.appel(this);
-
-        grille.installerCapteurs(modele);
-
-    }
+//    @Override
+//    public void installerCapteurs(MPartie modele) { //FIXME delete pour l'autre méthode
+//        GLog.appel(this);
+//
+//        grille.installerCapteurs(modele);
+//
+//    }
 
     public void creerAffichage(DPartie donnees){
         GLog.appel(this);

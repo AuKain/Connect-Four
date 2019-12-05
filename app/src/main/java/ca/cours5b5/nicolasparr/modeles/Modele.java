@@ -13,7 +13,6 @@ public abstract class Modele <D extends Donnees, P extends PageAvecModeles> {
         this.donnees = donnees;
         this.page = page;
 
-        page.installerCapteurs(this);
         initialiserCommandes();
     }
 

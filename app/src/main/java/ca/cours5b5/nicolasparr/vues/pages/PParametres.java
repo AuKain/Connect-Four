@@ -8,11 +8,15 @@ import android.widget.CheckBox;
 import android.widget.Switch;
 
 import ca.cours5b5.nicolasparr.R;
+import ca.cours5b5.nicolasparr.commandes.CContinuerPartie;
+import ca.cours5b5.nicolasparr.commandes.CTailleGrille;
 import ca.cours5b5.nicolasparr.donnees.DParametres;
 import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
+import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.MParametres;
 
+import static ca.cours5b5.nicolasparr.enumerations.ETailleGrille.GRANDE;
 import static ca.cours5b5.nicolasparr.enumerations.ETailleGrille.MOYENNE;
 import static ca.cours5b5.nicolasparr.enumerations.ETailleGrille.PETITE;
 
@@ -24,9 +28,10 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
     private CheckBox checkMoyenne;
     private CheckBox checkGrande;
 
-    /*
-     * TODO Attributs privés pour stoquer les commande
-     */
+    private CTailleGrille cTaillePetite;
+    private CTailleGrille cTailleMoyenne;
+    private CTailleGrille cTailleGrande;
+    private CContinuerPartie cContinuerPartie;
 
     public PParametres(Context context) {
         super(context);
@@ -58,33 +63,25 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
     @Override
     public void creerCommandes() {
-        /*
-         * TODO Créer les commandes
-         *
-         */
-    }
+        cContinuerPartie = new CContinuerPartie(switchContinuerPartie.isChecked());
 
-    @Override
-    public void installerCapteurs() {
-        /*
-         * TODO Modifier pour exécuter la commande
-         *  plutôt qu'appeler le modèle
-         *
-         */
+        cTaillePetite = new CTailleGrille(PETITE);
+        cTailleMoyenne = new CTailleGrille(MOYENNE);
+        cTailleGrande = new CTailleGrille(GRANDE);
     }
 
     @Override
     public void rafraichirCommandes() {
-        /*
-         * TODO Rafraîchir les commandes, c-a-d
-         *  activer/désactiver les contrôles
-         *  si la commande est exécutabe/non-exécutable
-         *
-         */
+
+        checkPetite.setClickable(cTaillePetite.siExecutable());
+        checkMoyenne.setClickable(cTailleMoyenne.siExecutable());
+        checkGrande.setClickable(cTailleGrande.siExecutable());
+
+        cContinuerPartie = new CContinuerPartie(switchContinuerPartie.isChecked());
     }
 
     @Override
-    public void installerCapteurs(final MParametres modele) { //FIXME Delete pour l'autre?
+    public void installerCapteurs() {
         GLog.appel(this);
 
         checkPetite.setOnClickListener(new OnClickListener() {
@@ -92,7 +89,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
             public void onClick(View view) {
                 GLog.appel(this);
 
-                modele.choisirTaille(PETITE);
+                cTaillePetite.executer();
             }
         });
 
@@ -101,7 +98,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
             public void onClick(View view) {
                 GLog.appel(this);
 
-                modele.choisirTaille(MOYENNE);
+                cTailleMoyenne.executer();
             }
         });
 
@@ -110,7 +107,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
             public void onClick(View view) {
                 GLog.appel(this);
 
-                modele.choisirTaille(ETailleGrille.GRANDE);
+                cTailleGrande.executer();
             }
         });
 
@@ -119,7 +116,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
             public void onClick(View v) {
                 GLog.appel(this);
 
-                modele.choisirSiContinuerPartie(switchContinuerPartie.isChecked());
+                cContinuerPartie.executer();
             }
         });
 
