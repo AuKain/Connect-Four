@@ -21,6 +21,8 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         effectuerCoup(indiceColonne);
 
         this.page.rafraichirAffichage(this.donnees);
+
+        testerSiPartieGagnee(); // TODO Après chaque coup, tester si la partie est gagnée
     }
 
     public boolean siPossibleJouerCoup(int indiceColonne) {
@@ -64,6 +66,43 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
         }else{
             donnees.setProchaineCouleur(ECouleur.ROUGE);
         }
+    }
+
+    private void reagirPartieGagnee() {
+        /*
+         * TODO Quand la partie est gagnée
+         * Utiliser une commande pour:
+         *    - afficher un message, puis
+         *    - quitter l'activité
+         *
+         */
+    }
+
+    private int getIdMessageAuGagnant() {
+        /*
+         * TODO utiliser les ressources
+         *  pour traduire le message au gagnant
+         *
+         */
+
+        return 0;
+    }
+
+    private boolean siPartieGagnee() {
+        /*
+         * TODO Choisir au hasard si la partie
+         *  est gagnée
+         *
+         */
+
+        return false;
+    }
+
+    private void testerSiPartieGagnee() {
+        /*
+         * TODO Si la partie est gagnée, réagir
+         *
+         */
     }
 
     @Override
