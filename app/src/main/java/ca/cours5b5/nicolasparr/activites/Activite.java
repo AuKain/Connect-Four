@@ -9,6 +9,7 @@ import java.io.File;
 
 import javax.microedition.khronos.opengles.GL;
 
+import ca.cours5b5.nicolasparr.commandes.CQuitterActivite;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 
@@ -21,6 +22,7 @@ public abstract class Activite extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        CQuitterActivite.initialiser(this);
 
     }
 
@@ -57,4 +59,9 @@ public abstract class Activite extends AppCompatActivity {
         return getDataDir();
     }
 
+    public void quitterActivite() {
+        GLog.appel(this);
+
+        finish();
+    }
 }

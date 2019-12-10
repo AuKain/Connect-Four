@@ -1,28 +1,31 @@
 package ca.cours5b5.nicolasparr.commandes;
 
+import ca.cours5b5.nicolasparr.activites.Activite;
+import ca.cours5b5.nicolasparr.global.GLog;
+
 public class CQuitterActivite extends Commande {
 
     /*
-     * TODO Attribut privé statique pour stoquer
-     *  le bon contexte pour la commande, p.ex:
-     *  activité, modèle ou page
+     * Attribut privé statique pour stoquer
+     * le bon contexte pour la commande, p.ex:
+     * activité, modèle ou page
      */
+    private static Activite activite;
 
-    public static void initialiser(/* le contexte */) {
-        // TODO stoquer le contexte
+    public static void initialiser(Activite activite) {
+        // stoquer le contexte
+        CQuitterActivite.activite = activite;
     }
 
-    // TODO Attributs?
-    // TODO Constructeur?
+    public CQuitterActivite() {
+        GLog.appel(this);
 
-//    public static void quitterActivite() {
-//
-//    }
+    }
 
     @Override
     public void executer() {
-        /*
-         * TODO appeler la bonne méthode selon le contexte
-         */
+        GLog.appel(this);
+
+        activite.quitterActivite();
     }
 }

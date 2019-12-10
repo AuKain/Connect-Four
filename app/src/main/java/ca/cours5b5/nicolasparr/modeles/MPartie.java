@@ -1,9 +1,13 @@
 package ca.cours5b5.nicolasparr.modeles;
 
 
+import ca.cours5b5.nicolasparr.R;
 import ca.cours5b5.nicolasparr.commandes.CCoupIci;
+import ca.cours5b5.nicolasparr.commandes.CMessagePuisCommande;
+import ca.cours5b5.nicolasparr.commandes.CQuitterActivite;
 import ca.cours5b5.nicolasparr.donnees.partie.DPartie;
 import ca.cours5b5.nicolasparr.enumerations.ECouleur;
+import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.vues.pages.PPartie;
 import ca.cours5b5.nicolasparr.vues.pages.PPartieLocale;
@@ -22,7 +26,7 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
 
         this.page.rafraichirAffichage(this.donnees);
 
-        testerSiPartieGagnee(); // TODO Après chaque coup, tester si la partie est gagnée
+        testerSiPartieGagnee(); // Après chaque coup, tester si la partie est gagnée
     }
 
     public boolean siPossibleJouerCoup(int indiceColonne) {
@@ -61,48 +65,41 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
     private void prochaineCouleur() {
         GLog.appel(this);
 
-        if(donnees.getProchaineCouleur() == ECouleur.ROUGE){
+        if (donnees.getProchaineCouleur() == ECouleur.ROUGE) {
+
             donnees.setProchaineCouleur(ECouleur.BLEU);
-        }else{
+        } else {
+
             donnees.setProchaineCouleur(ECouleur.ROUGE);
         }
     }
 
     private void reagirPartieGagnee() {
-        /*
-         * TODO Quand la partie est gagnée
-         * Utiliser une commande pour:
-         *    - afficher un message, puis
-         *    - quitter l'activité
-         *
-         */
+        GLog.appel(this);
+
+        CMessagePuisCommande.initialiser(this.page);
+        new CMessagePuisCommande(getIdMessageAuGagnant(), new CQuitterActivite()).executer();
+
     }
 
     private int getIdMessageAuGagnant() {
-        /*
-         * TODO utiliser les ressources
-         *  pour traduire le message au gagnant
-         *
-         */
+        GLog.appel(this);
 
-        return 0;
+        return donnees.getProchaineCouleur() == ECouleur.BLEU ? R.string.gagne_rouge : R.string.gagne_bleu;
     }
 
     private boolean siPartieGagnee() {
-        /*
-         * TODO Choisir au hasard si la partie
-         *  est gagnée
-         *
-         */
+        GLog.appel(this);
 
-        return false;
+        return Math.random() < 0.2; //FIXME check temporaire
     }
 
     private void testerSiPartieGagnee() {
-        /*
-         * TODO Si la partie est gagnée, réagir
-         *
-         */
+        GLog.appel(this);
+
+        if (siPartieGagnee()) {
+            reagirPartieGagnee();
+        }
     }
 
     @Override

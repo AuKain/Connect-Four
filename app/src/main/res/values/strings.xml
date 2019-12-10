@@ -24,6 +24,7 @@
     <string name="rouge">Rouge</string>
     <string name="bleu">Bleu</string>
 
-
+    <string name="gagne_rouge">Les rouges gagnent!</string>
+    <string name="gagne_bleu">Les bleus gagnent!</string>
 
 </resources>

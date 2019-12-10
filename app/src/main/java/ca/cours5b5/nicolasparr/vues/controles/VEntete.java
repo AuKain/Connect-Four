@@ -38,7 +38,6 @@ public class VEntete extends AppCompatButton {
         // TP01: afficher la idColonne pour deboguer
         setText(idColonne + "\n" + getResources().getString(R.string.entete));
         //setText( getResources().getString(R.string.entete) + "\n" + getResources().getString(R.string.entete));
-
     }
 
     public void installerCapteur(final CCoupIci coupIci) {
@@ -47,14 +46,9 @@ public class VEntete extends AppCompatButton {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                GLog.appel(this);
 
                 coupIci.executer();
-
-
             }
         });
-
-
     }
 }
