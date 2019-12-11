@@ -4,7 +4,7 @@ import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
 
-public class DParametres extends Donnees {
+public class DParametres extends Donnees<DParametres> {
 
 
     private ETailleGrille tailleGrille = GConstantes.TAILLE_GRILLE_PAR_DEFAUT;
@@ -34,4 +34,13 @@ public class DParametres extends Donnees {
         this.siContinuerPartiePrecedente = siContinuerPartiePrecedente;
     }
 
+    @Override
+    public void copierDonnees(DParametres dParametres) {
+        /*
+         * TODO Appeler super.copierDonnees
+         *  .
+         *  Copier les données
+         *
+         */
+    }
 }

@@ -1,13 +1,12 @@
 package ca.cours5b5.nicolasparr.donnees.partie;
 
-
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.enumerations.ECouleur;
 import ca.cours5b5.nicolasparr.enumerations.ETailleGrille;
 import ca.cours5b5.nicolasparr.global.GConstantes;
 import ca.cours5b5.nicolasparr.global.GLog;
 
-public abstract class DPartie extends Donnees {
+public abstract class DPartie extends Donnees<DPartie> {
 
     private ETailleGrille tailleGrille = GConstantes.TAILLE_GRILLE_PAR_DEFAUT;
     private DGrille dGrille;
@@ -66,5 +65,15 @@ public abstract class DPartie extends Donnees {
         int nombreJetonsMax = tailleGrille.getHauteur();
 
         return nombreJetons >= nombreJetonsMax;
+    }
+
+    @Override
+    public void copierDonnees(DPartie dpartie) {
+        /*
+         * TODO Appeler super.copierDonnees
+         *  .
+         *  Copier les données
+         *
+         */
     }
 }

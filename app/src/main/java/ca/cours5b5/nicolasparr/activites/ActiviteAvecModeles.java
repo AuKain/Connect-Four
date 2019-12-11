@@ -11,9 +11,7 @@ import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.Modele;
 import ca.cours5b5.nicolasparr.vues.pages.PageAvecModeles;
 
-public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P extends PageAvecModeles>
-
-        extends Activite {
+public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P extends PageAvecModeles> extends Activite {
 
     private D donnees;
     private P page;
@@ -71,6 +69,40 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
 
     }
 
+    private void detruireAncienModele() {
+        /*
+         * TODO Si un modèle existe déjà,
+         *  le détruire
+         */
+    }
+
+    private void memoriserDonneesPuisGererModelePage() {
+        /*
+         * TODO Détruire l'ancien modèle
+         * Stoquer les données
+         * Créer un nouveau modèle
+         * Initialiser la page
+         */
+    }
+
+    private void reagirDonneesSurServeur(D donneesDuServeur) {
+        /*
+         * TODO Copier les données du serveur
+         *  dans l'objet donnees courant
+         *
+         * Rafraîchir l'affichage
+         *
+         */
+    }
+
+    protected void observerDonneesEtGererModelePage() {
+        /*
+         * TODO Observer les données et appeler
+         *  les bonnes méthodes
+         *
+         */
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -86,7 +118,7 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
 
         this.page = recupererPage();
 
-        obtenirDonneesPuisInitialiserModelePage();
+        observerDonneesEtGererModelePage();
     }
 
     protected abstract int getIdPage();

@@ -38,6 +38,8 @@ public abstract class PageAvecModeles<D extends Donnees, M extends Modele> exten
         fenetreMessage.show();
     }
 
+    public abstract void detruireAffichage();
+
     public abstract void creerAffichage(D donnees);
 
     public abstract void rafraichirAffichage(D donnees);

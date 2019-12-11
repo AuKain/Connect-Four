@@ -46,6 +46,13 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
     }
 
     @Override
+    public void detruireAffichage() {
+        /*
+         * Rien à faire
+         */
+    }
+
+    @Override
     public void creerAffichage(DParametres donnees) {
         GLog.appel(this);
     }
