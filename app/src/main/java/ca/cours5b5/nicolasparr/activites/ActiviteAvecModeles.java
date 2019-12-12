@@ -6,6 +6,7 @@ import java.io.File;
 
 import ca.cours5b5.nicolasparr.donnees.Donnees;
 import ca.cours5b5.nicolasparr.donnees.EntrepotDeDonnees;
+import ca.cours5b5.nicolasparr.donnees.Observateur;
 import ca.cours5b5.nicolasparr.donnees.RetourDonnees;
 import ca.cours5b5.nicolasparr.global.GLog;
 import ca.cours5b5.nicolasparr.modeles.Modele;
@@ -60,6 +61,8 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     }
 
     private void obtenirDonneesPuisInitialiserModelePage() {
+        GLog.appel(this);
+
         EntrepotDeDonnees.obtenirDonnees(getClassDonnees(), new RetourDonnees<D>() {
             @Override
             public void recevoirDonnees(D donnees) {
@@ -70,37 +73,47 @@ public abstract class ActiviteAvecModeles<D extends Donnees, M extends Modele, P
     }
 
     private void detruireAncienModele() {
-        /*
-         * TODO Si un modèle existe déjà,
-         *  le détruire
-         */
+        GLog.appel(this);
+
+        if (modele != null) {
+            modele.detruire();
+        }
     }
 
-    private void memoriserDonneesPuisGererModelePage() {
-        /*
-         * TODO Détruire l'ancien modèle
-         * Stoquer les données
-         * Créer un nouveau modèle
-         * Initialiser la page
-         */
+    private void memoriserDonneesPuisGererModelePage(D donneesRecues) {
+        GLog.appel(this);
+
+        detruireAncienModele();
+
+        this.donnees = donneesRecues;
+
+        this.modele = creerModele(donnees, page);
+
+        initialiserPage();
     }
 
     private void reagirDonneesSurServeur(D donneesDuServeur) {
-        /*
-         * TODO Copier les données du serveur
-         *  dans l'objet donnees courant
-         *
-         * Rafraîchir l'affichage
-         *
-         */
+        GLog.appel(this);
+
+        donnees.copierDonnees(donneesDuServeur);
+
+        rafraichirAffichage();
     }
 
     protected void observerDonneesEtGererModelePage() {
-        /*
-         * TODO Observer les données et appeler
-         *  les bonnes méthodes
-         *
-         */
+        GLog.appel(this);
+
+        EntrepotDeDonnees.observerDonnees(getClassDonnees(), new Observateur<D>() {
+            @Override
+            protected void nouveau(D donnees) {
+                memoriserDonneesPuisGererModelePage(donnees);
+            }
+
+            @Override
+            protected void donneesDuServeur(D donnees) {
+                reagirDonneesSurServeur(donnees);
+            }
+        });
     }
 
     @Override

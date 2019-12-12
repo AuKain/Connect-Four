@@ -38,6 +38,8 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
 
         ajouterJeton(indiceColonne);
         prochainJoueur();
+
+        notifierModificationLocale();
     }
 
     protected void ajouterJeton(int indiceColonne){
@@ -91,7 +93,7 @@ public abstract class MPartie extends Modele<DPartie, PPartie> {
     private boolean siPartieGagnee() {
         GLog.appel(this);
 
-        return Math.random() < 0.2; //FIXME check temporaire
+        return Math.random() < 0.2;
     }
 
     private void testerSiPartieGagnee() {

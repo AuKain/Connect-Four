@@ -39,12 +39,9 @@ public abstract class PPartie extends PageAvecModeles<DPartie, MPartie> {
 
     @Override
     public void detruireAffichage() {
-        /*
-         * TODO Détruire la grille
-         *
-         * TRUC: appeler la grille
-         *
-         */
+        GLog.appel(this);
+
+        grille.detruireGrille();
     }
 
     @Override

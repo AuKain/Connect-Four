@@ -142,7 +142,7 @@ public class AAccueil extends ActiviteAvecControles {
 
         ajusterBoutonsConnexion();
 
-        //TODO capteur Partie En Ligne
+        //capteur Partie En Ligne
     }
 
     private void installerCapteurParametres(){

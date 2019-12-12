@@ -47,6 +47,7 @@ public class PParametres extends PageAvecModeles<DParametres, MParametres> {
 
     @Override
     public void detruireAffichage() {
+        GLog.appel(this);
         /*
          * Rien à faire
          */

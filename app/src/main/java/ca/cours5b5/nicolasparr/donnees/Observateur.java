@@ -1,25 +1,28 @@
 package ca.cours5b5.nicolasparr.donnees;
 
+import ca.cours5b5.nicolasparr.global.GLog;
+
 public abstract class Observateur<D extends Donnees> {
 
-    /*
-     * TODO Attribut privé pour stoquer la version courante
-     * de l'observation des données
-     */
+    private int versionCourante;
 
     public void notifierNouvellesDonnees(D donnees) {
-        /*
-         * TODO Stoquer la version courante
-         * Appeler nouveau
-         */
+        GLog.appel(this);
+
+        this.versionCourante = donnees.getVersionCourante();
+
+        nouveau(donnees);
     }
 
     public void notifierModifierDonnees(D donnees) {
-        /*
-         * TODO Si on reçoit une version plus récente:
-         *     - stoquer la nouvelle version courante
-         *     - appeler donneesDuServeur
-         */
+        GLog.appel(this);
+
+      //  if (donnees.getVersionCourante() > this.versionCourante) {
+
+         //   this.versionCourante = donnees.getVersionCourante();
+
+            donneesDuServeur(donnees);
+       // }
     }
 
     protected abstract void nouveau(D donnees);

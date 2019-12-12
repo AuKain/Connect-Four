@@ -1,26 +1,24 @@
 package ca.cours5b5.nicolasparr.donnees;
 
+import ca.cours5b5.nicolasparr.global.GLog;
+
 public abstract class Donnees<D extends Donnees> {
 
-    /*
-     * TODO Attribut privé pour stoquer la version courante des données
-     *  (ajouter aussi un getter)
-     */
+    private int versionCourante;
 
     public void notifierModificationLocale() {
-        /*
-         * TODO Incrémenter la version courante
-         */
+        GLog.appel(this);
+
+        this.versionCourante++;
     }
 
     public void copierDonnees(D donneesRecues) {
-        /*
-         * TODO Copier les données
-         * (p.ex. la version)
-         *
-         * NOTE: cette méthode doit être
-         *       redéfinie dans DPartie et
-         *       DParametres
-         */
+        GLog.appel(this);
+
+        this.versionCourante = donneesRecues.getVersionCourante();
+    }
+
+    public int getVersionCourante() {
+        return versionCourante;
     }
 }

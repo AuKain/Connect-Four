@@ -69,11 +69,12 @@ public abstract class DPartie extends Donnees<DPartie> {
 
     @Override
     public void copierDonnees(DPartie dpartie) {
-        /*
-         * TODO Appeler super.copierDonnees
-         *  .
-         *  Copier les données
-         *
-         */
+        GLog.appel(this);
+
+        super.copierDonnees(dpartie);
+
+        this.tailleGrille = dpartie.getTailleGrille();
+        this.dGrille = dpartie.getGrille();
+        this.prochaineCouleur = dpartie.getProchaineCouleur();
     }
 }

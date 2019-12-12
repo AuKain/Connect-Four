@@ -36,11 +36,11 @@ public class DParametres extends Donnees<DParametres> {
 
     @Override
     public void copierDonnees(DParametres dParametres) {
-        /*
-         * TODO Appeler super.copierDonnees
-         *  .
-         *  Copier les données
-         *
-         */
+        GLog.appel(this);
+
+        super.copierDonnees(dParametres);
+
+        this.tailleGrille = dParametres.getTailleGrille();
+        this.siContinuerPartiePrecedente = dParametres.getContinuerPartiePrecedente();
     }
 }
